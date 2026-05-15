@@ -41,7 +41,7 @@ export const Contact = () => {
     setLoading(true);
 
     try {
-            await emailjs.send(
+      await emailjs.send(
         "service_ikdegj5",
         "template_pzahdea",
         {
@@ -153,25 +153,31 @@ export const Contact = () => {
             </Card>
 
             {/* Location */}
-            <Card className="p-3 shadow-soft hover:shadow-medium transition-smooth flex items-center gap-3">
+            <a
+              href="https://maps.app.goo.gl/X4pX8KqeC2sF52NK9"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Card className="p-3 shadow-soft hover:shadow-medium transition-smooth flex items-center gap-3 cursor-pointer">
 
-              <div className="p-2 bg-accent-coral/10 rounded-lg">
-                <MapPin className="w-5 h-5 text-accent-coral" />
-              </div>
+                <div className="p-2 bg-accent-coral/10 rounded-lg">
+                  <MapPin className="w-5 h-5 text-accent-coral" />
+                </div>
 
-              <div>
+                <div>
 
-                <p className="font-medium">
-                  Location
-                </p>
+                  <p className="font-medium">
+                    Location
+                  </p>
 
-                <p className="text-sm text-muted-foreground">
-                  Tamil Nadu, India
-                </p>
+                  <p className="text-sm text-muted-foreground hover:underline">
+                    google.com/maps/@...
+                  </p>
 
-              </div>
+                </div>
 
-            </Card>
+              </Card>
+            </a>
 
           </div>
 
