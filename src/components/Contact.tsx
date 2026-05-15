@@ -52,7 +52,7 @@ export const Contact = () => {
         "QbThD2_C1E1ZT2Dy1"
       );
 
-      toast.success("✅ Message sent successfully!");
+      toast.success("Message sent successfully!");
 
       // Reset form
       setFormData({
@@ -64,7 +64,7 @@ export const Contact = () => {
     } catch (error) {
       console.error("EMAIL ERROR:", error);
 
-      toast.error("❌ Failed to send message");
+      toast.error("Error: Failed to send message");
     } finally {
       setLoading(false);
     }
