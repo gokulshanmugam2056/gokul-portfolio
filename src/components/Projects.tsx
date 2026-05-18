@@ -63,8 +63,18 @@ export const Projects = () => {
                       {project.title}
                     </h3>
                     <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-smooth">
+
+                    {/* Optional demo link (keep if needed) */}
                       <ExternalLink className="w-5 h-5 text-muted-foreground hover:text-foreground cursor-pointer" />
-                      <Github className="w-5 h-5 text-muted-foreground hover:text-foreground cursor-pointer" />
+                      {/* GitHub link */}
+                      <a
+                        href="https://github.com/gokulshanmugam2056"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Github className="w-5 h-5 text-muted-foreground hover:text-black hover:scale-110 transition-all cursor-pointer" />
+                      </a>
+
                     </div>
                   </div>
 
