@@ -32,6 +32,7 @@ const projects = [
     teamSize: "3",
     color: "bg-accent-coral/10 border-accent-coral/30",
   },
+
   {
     title: "Intelligent Student–Alumni Networking Platform",
     duration: "November 2024 - December 2024",
@@ -44,6 +45,7 @@ const projects = [
     teamSize: "6",
     color: "bg-accent-purple/10 border-accent-purple/30",
   },
+
   {
     title: "Faculty Worklog Management System",
     duration: "May 2024 - September 2024",
@@ -61,15 +63,17 @@ const projects = [
 export const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [imgIndex, setImgIndex] = useState(0);
-  const [zoom, setZoom] = useState(1);
+  const [fullView, setFullView] = useState(false);
 
   const openProject = (project: any) => {
     setSelectedProject(project);
     setImgIndex(0);
-    setZoom(1);
   };
 
-  const closeModal = () => setSelectedProject(null);
+  const closeModal = () => {
+    setSelectedProject(null);
+    setFullView(false);
+  };
 
   const nextImg = () => {
     setImgIndex((prev) =>
@@ -77,7 +81,6 @@ export const Projects = () => {
         ? (prev + 1) % selectedProject.images.length
         : prev
     );
-    setZoom(1);
   };
 
   const prevImg = () => {
@@ -88,7 +91,6 @@ export const Projects = () => {
           : prev - 1
         : prev
     );
-    setZoom(1);
   };
 
   return (
@@ -128,7 +130,7 @@ export const Projects = () => {
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <ExternalLink className="w-5 h-5 text-muted-foreground hover:text-foreground" />
+                      <ExternalLink className="w-5 h-5 text-gray-500 hover:text-black" />
                     </a>
 
                     <a
@@ -137,13 +139,13 @@ export const Projects = () => {
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <Github className="w-5 h-5 text-muted-foreground hover:text-black" />
+                      <Github className="w-5 h-5 text-gray-500 hover:text-black" />
                     </a>
 
                   </div>
                 </div>
 
-                {/* DETAILS (UNCHANGED) */}
+                {/* DETAILS */}
                 <div className="space-y-2 text-sm">
                   <p className="text-muted-foreground">
                     <span className="font-semibold text-foreground">Duration:</span>{" "}
@@ -161,7 +163,7 @@ export const Projects = () => {
                   </p>
                 </div>
 
-                {/* DESCRIPTION (UNCHANGED) */}
+                {/* DESCRIPTION */}
                 <p className="text-muted-foreground leading-relaxed">
                   {project.description}
                 </p>
@@ -181,73 +183,95 @@ export const Projects = () => {
         </div>
       </div>
 
-      {/* ================= MODAL ================= */}
+      {/* ================= MINI MODAL ================= */}
       {selectedProject && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-
-          <div className="bg-white rounded-xl w-[90%] max-w-4xl p-4 relative">
-
-            {/* CLOSE */}
-            <button
-              className="absolute top-2 right-3 text-xl"
-              onClick={() => setSelectedProject(null)}
-            >
-              ✕
-            </button>
+        <div
+          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+          onClick={closeModal}   // 👈 CLICK OUTSIDE CLOSE
+        >
+          <div
+            className="bg-white rounded-xl w-[85%] max-w-3xl p-4 relative"
+            onClick={(e) => e.stopPropagation()} // 👈 prevent close when clicking inside
+          >
 
             <h2 className="text-lg font-bold mb-4">
               {selectedProject.title}
             </h2>
 
             {/* FRAME */}
-            <div className="relative flex items-center justify-center border rounded-lg p-4 bg-white">
+            <div className="relative flex items-center justify-center border rounded-xl p-3 bg-white">
 
-              {/* LEFT ARROW (inside frame) */}
-              <button
-                onClick={prevImg}
-                className="absolute left-2 bg-black/70 text-white px-3 py-2 rounded-full z-10"
-              >
-                ◀
-              </button>
+              {/* LEFT ARROW */}
+              {selectedProject.images.length > 1 && (
+                <button
+                  onClick={prevImg}
+                  className="absolute left-2 text-gray-400 hover:text-gray-600 text-3xl"
+                >
+                  ‹
+                </button>
+              )}
 
-              {/* IMAGE BOX (WHITE BACKGROUND FIX) */}
-              <div className="w-[600px] h-[350px] flex items-center justify-center bg-white overflow-hidden">
-                <img
-                  src={selectedProject.images[imgIndex]}
-                  style={{ transform: `scale(${zoom})` }}
-                  className="transition-transform duration-300 object-contain max-h-full"
-                />
+              {/* IMAGE */}
+              <div className="w-[550px] h-[240px] flex items-center justify-center bg-white overflow-hidden">
+                {selectedProject.images.length > 0 ? (
+                  <img
+                    src={selectedProject.images[imgIndex]}
+                    className="object-contain max-h-full max-w-full"
+                  />
+                ) : (
+                  <div className="text-gray-400">No images</div>
+                )}
               </div>
 
-              {/* RIGHT ARROW (inside frame) */}
-              <button
-                onClick={nextImg}
-                className="absolute right-2 bg-black/70 text-white px-3 py-2 rounded-full z-10"
-              >
-                ▶
-              </button>
-            </div>
-
-            {/* ZOOM CONTROLS */}
-            <div className="flex justify-center gap-4 mt-4">
-
-              <button
-                onClick={() => setZoom((z) => Math.min(z + 0.2, 3))}
-                className="bg-gray-800 text-white px-3 py-1 rounded"
-              >
-                +
-              </button>
-
-              <button
-                onClick={() => setZoom((z) => Math.max(z - 0.2, 1))}
-                className="bg-gray-800 text-white px-3 py-1 rounded"
-              >
-                -
-              </button>
-
+              {/* RIGHT ARROW */}
+              {selectedProject.images.length > 1 && (
+                <button
+                  onClick={nextImg}
+                  className="absolute right-2 text-gray-400 hover:text-gray-600 text-3xl"
+                >
+                  ›
+                </button>
+              )}
             </div>
 
           </div>
+        </div>
+      )}
+
+      {/* ================= FULL VIEW ================= */}
+      {fullView && selectedProject && (
+        <div className="fixed inset-0 bg-black z-[60] flex items-center justify-center">
+
+          {/* CLOSE */}
+          <button
+            onClick={() => setFullView(false)}
+            className="absolute top-4 right-5 text-red-500 text-4xl font-bold"
+          >
+            ✕
+          </button>
+
+          {/* LEFT */}
+          <button
+            onClick={prevImg}
+            className="absolute left-6 text-white text-5xl opacity-70 hover:opacity-100"
+          >
+            ‹
+          </button>
+
+          {/* IMAGE */}
+          <img
+            src={selectedProject.images[imgIndex]}
+            className="max-w-[95%] max-h-[95%] object-contain"
+          />
+
+          {/* RIGHT */}
+          <button
+            onClick={nextImg}
+            className="absolute right-6 text-white text-5xl opacity-70 hover:opacity-100"
+          >
+            ›
+          </button>
+
         </div>
       )}
     </section>
