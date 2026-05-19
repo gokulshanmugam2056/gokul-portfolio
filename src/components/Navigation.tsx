@@ -17,6 +17,14 @@ export const Navigation = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
+  // ✅ FIX: always scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "auto", // change to "smooth" if you want animation
+    });
+  }, [location.pathname]);
+
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "auto";
   }, [isMobileMenuOpen]);
@@ -30,18 +38,20 @@ export const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ HEADER STYLE LOGIC
+  // HEADER STYLE LOGIC
   const headerClass =
     isHomePage
       ? isScrolled
         ? "bg-white/10 backdrop-blur-md shadow-md"
         : "bg-transparent"
-      : "bg-white/20 backdrop-blur-md shadow-md"; // 👈 ALWAYS BLUR ON OTHER PAGES
+      : "bg-white/20 backdrop-blur-md shadow-md";
 
   return (
     <>
       {/* HEADER */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerClass}`}>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerClass}`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
 
@@ -87,7 +97,7 @@ export const Navigation = () => {
         </div>
       </header>
 
-      {/* BLUR BACKDROP */}
+      {/* BACKDROP */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xl z-40"></div>
       )}
