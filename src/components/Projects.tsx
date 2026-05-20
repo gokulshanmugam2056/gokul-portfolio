@@ -116,7 +116,9 @@ export const Projects = () => {
             >
               <div className="space-y-4">
 
-                <div className="flex items-start justify-between">
+                {/* TITLE ROW (FIXED HERE) */}
+                <div className="flex items-start justify-between gap-4">
+
                   <h3 className="text-2xl font-bold group-hover:text-primary">
                     {project.title}
                   </h3>
@@ -166,22 +168,24 @@ export const Projects = () => {
             onClick={(e) => e.stopPropagation()}
           >
 
-            {/* VIEW FULL BUTTON */}
-            {selectedProject.images.length > 0 && (
-              <button
-                onClick={() => setFullView(true)}
-                className="absolute top-3 right-3 text-xs bg-black text-white px-3 py-1 rounded"
-              >
-                View Full
-              </button>
-            )}
+            {/* TITLE + VIEW FULL (FIXED POSITION) */}
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-bold">
+                {selectedProject.title}
+              </h2>
 
-            <h2 className="text-lg font-bold mb-4">
-              {selectedProject.title}
-            </h2>
+              {selectedProject.images.length > 0 && (
+                <button
+                  onClick={() => setFullView(true)}
+                  className="text-xs bg-black text-white px-3 py-1 rounded hover:bg-gray-800"
+                >
+                  View Full
+                </button>
+              )}
+            </div>
 
             {/* FRAME */}
-            <div className="relative flex items-center justify-center border rounded-xl p-3">
+            <div className="relative flex items-center justify-center border rounded-xl p-3 bg-white">
 
               {selectedProject.images.length > 1 && (
                 <button onClick={prevImg} className="absolute left-2 text-gray-400 text-3xl">
@@ -208,12 +212,10 @@ export const Projects = () => {
 
             </div>
 
-            {/* IMAGE COUNT OUTSIDE FRAME */}
-            {selectedProject.images.length > 0 && (
-              <div className="text-center mt-3 text-sm text-gray-500">
-                {imgIndex + 1} / {selectedProject.images.length}
-              </div>
-            )}
+            {/* IMAGE COUNT */}
+            <div className="text-center mt-3 text-sm text-gray-500">
+              {imgIndex + 1} / {selectedProject.images.length}
+            </div>
 
           </div>
         </div>
@@ -223,7 +225,6 @@ export const Projects = () => {
       {fullView && selectedProject && (
         <div className="fixed inset-0 bg-black z-[60] flex items-center justify-center">
 
-          {/* CLOSE */}
           <button
             onClick={() => setFullView(false)}
             className="absolute top-4 right-5 text-red-500 text-2xl font-bold"
@@ -231,33 +232,29 @@ export const Projects = () => {
             ✕
           </button>
 
-          {/* LEFT */}
           {selectedProject.images.length > 1 && (
             <button
               onClick={prevImg}
-              className="absolute left-6 text-gray-300 text-4xl"
+              className="absolute left-6 text-gray-300 text-3xl"
             >
               ‹
             </button>
           )}
 
-          {/* IMAGE */}
           <img
             src={selectedProject.images[imgIndex]}
             className="max-w-[90%] max-h-[90vh] object-contain"
           />
 
-          {/* RIGHT */}
           {selectedProject.images.length > 1 && (
             <button
               onClick={nextImg}
-              className="absolute right-6 text-gray-300 text-4xl"
+              className="absolute right-6 text-gray-300 text-3xl"
             >
               ›
             </button>
           )}
 
-          {/* IMAGE COUNT FULL */}
           <div className="absolute bottom-3 text-white text-sm">
             {imgIndex + 1} / {selectedProject.images.length}
           </div>
