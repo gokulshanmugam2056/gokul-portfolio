@@ -99,14 +99,18 @@ export const Projects = () => {
 
         {/* TITLE */}
         <div className="text-center space-y-4 mb-8">
-          <h2 className="text-4xl md:text-5xl font-bold">My Projects</h2>
+          <h2 className="text-4xl md:text-5xl font-bold">
+            My Projects
+          </h2>
+
           <div className="w-20 h-1 bg-gradient-accent mx-auto rounded-full"></div>
+
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Here are some of my recent projects that showcase my skills and passion for web development
           </p>
         </div>
 
-        {/* CARDS */}
+        {/* PROJECT CARDS */}
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {projects.map((project) => (
             <Card
@@ -147,20 +151,28 @@ export const Projects = () => {
 
                 {/* DETAILS */}
                 <div className="space-y-2 text-sm">
+
                   <p className="text-muted-foreground">
-                    <span className="font-semibold text-foreground">Duration:</span>{" "}
+                    <span className="font-semibold text-foreground">
+                      Duration:
+                    </span>{" "}
                     {project.duration}
                   </p>
 
                   <p className="text-muted-foreground">
-                    <span className="font-semibold text-foreground">Role:</span>{" "}
+                    <span className="font-semibold text-foreground">
+                      Role:
+                    </span>{" "}
                     {project.role}
                   </p>
 
                   <p className="text-muted-foreground">
-                    <span className="font-semibold text-foreground">Team Size:</span>{" "}
+                    <span className="font-semibold text-foreground">
+                      Team Size:
+                    </span>{" "}
                     {project.teamSize}
                   </p>
+
                 </div>
 
                 {/* DESCRIPTION */}
@@ -168,7 +180,7 @@ export const Projects = () => {
                   {project.description}
                 </p>
 
-                {/* TECH */}
+                {/* TECH STACK */}
                 <div className="flex flex-wrap gap-2 pt-2">
                   {project.techStack.map((tech) => (
                     <Badge key={tech} variant="secondary">
@@ -187,11 +199,11 @@ export const Projects = () => {
       {selectedProject && (
         <div
           className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
-          onClick={closeModal}   // 👈 CLICK OUTSIDE CLOSE
+          onClick={closeModal}
         >
           <div
             className="bg-white rounded-xl w-[85%] max-w-3xl p-4 relative"
-            onClick={(e) => e.stopPropagation()} // 👈 prevent close when clicking inside
+            onClick={(e) => e.stopPropagation()}
           >
 
             <h2 className="text-lg font-bold mb-4">
@@ -212,14 +224,16 @@ export const Projects = () => {
               )}
 
               {/* IMAGE */}
-              <div className="w-[550px] h-[240px] flex items-center justify-center bg-white overflow-hidden">
+              <div className="w-[550px] h-[240px] flex items-center justify-center bg-white overflow-hidden rounded-lg">
                 {selectedProject.images.length > 0 ? (
                   <img
                     src={selectedProject.images[imgIndex]}
                     className="object-contain max-h-full max-w-full"
                   />
                 ) : (
-                  <div className="text-gray-400">No images</div>
+                  <div className="text-gray-400">
+                    No images
+                  </div>
                 )}
               </div>
 
@@ -232,31 +246,46 @@ export const Projects = () => {
                   ›
                 </button>
               )}
+
+              {/* VIEW FULL BUTTON */}
+              {selectedProject.images.length > 0 && (
+                <div className="absolute bottom-2 right-3">
+                  <button
+                    onClick={() => setFullView(true)}
+                    className="bg-black/80 text-white text-xs px-3 py-1 rounded-md hover:bg-black transition"
+                  >
+                    View Full
+                  </button>
+                </div>
+              )}
+
             </div>
 
           </div>
         </div>
       )}
 
-      {/* ================= FULL VIEW ================= */}
+      {/* ================= FULL SCREEN VIEW ================= */}
       {fullView && selectedProject && (
         <div className="fixed inset-0 bg-black z-[60] flex items-center justify-center">
 
           {/* CLOSE */}
           <button
             onClick={() => setFullView(false)}
-            className="absolute top-4 right-5 text-red-500 text-4xl font-bold"
+            className="absolute top-4 right-5 text-red-500 text-4xl font-bold hover:text-red-600 transition z-50"
           >
             ✕
           </button>
 
           {/* LEFT */}
-          <button
-            onClick={prevImg}
-            className="absolute left-6 text-white text-5xl opacity-70 hover:opacity-100"
-          >
-            ‹
-          </button>
+          {selectedProject.images.length > 1 && (
+            <button
+              onClick={prevImg}
+              className="absolute left-6 text-white text-5xl opacity-70 hover:opacity-100"
+            >
+              ‹
+            </button>
+          )}
 
           {/* IMAGE */}
           <img
@@ -265,12 +294,14 @@ export const Projects = () => {
           />
 
           {/* RIGHT */}
-          <button
-            onClick={nextImg}
-            className="absolute right-6 text-white text-5xl opacity-70 hover:opacity-100"
-          >
-            ›
-          </button>
+          {selectedProject.images.length > 1 && (
+            <button
+              onClick={nextImg}
+              className="absolute right-6 text-white text-5xl opacity-70 hover:opacity-100"
+            >
+              ›
+            </button>
+          )}
 
         </div>
       )}
