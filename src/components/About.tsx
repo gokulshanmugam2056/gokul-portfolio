@@ -6,28 +6,28 @@ import {
 } from "lucide-react";
 
 const programmingSkills = [
-  { name: "C", level: 75 },
+  { name: "C", level: 85 },
   { name: "Java", level: 80 },
-  { name: "JavaScript", level: 90 },
+  { name: "JavaScript", level: 70 },
   { name: "TypeScript", level: 70 },
 ];
 
 const webSkills = [
-  { name: "HTML5", level: 95 },
+  { name: "HTML5", level: 90 },
   { name: "CSS3", level: 90 },
   { name: "React.js", level: 85 },
-  { name: "Tailwind CSS", level: 90 },
-  { name: "Node.js", level: 80 },
-  { name: "Express.js", level: 75 },
+  { name: "Tailwind CSS", level: 80 },
+  { name: "Node.js", level: 70 },
+  { name: "Express.js", level: 70 },
   { name: "PHP", level: 70 },
-  { name: "Apache", level: 65 },
-  { name: "Supabase", level: 80 },
+  { name: "Apache", level: 70 },
+  { name: "Supabase", level: 70 },
 ];
 
 const dbSkills = [
   { name: "MySQL", level: 85 },
   { name: "MongoDB", level: 80 },
-  { name: "PostgreSQL", level: 75 },
+  { name: "PostgreSQL", level: 70 },
 ];
 
 // Skill UI
