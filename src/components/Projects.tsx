@@ -99,18 +99,14 @@ export const Projects = () => {
 
         {/* TITLE */}
         <div className="text-center space-y-4 mb-8">
-          <h2 className="text-4xl md:text-5xl font-bold">
-            My Projects
-          </h2>
-
+          <h2 className="text-4xl md:text-5xl font-bold">My Projects</h2>
           <div className="w-20 h-1 bg-gradient-accent mx-auto rounded-full"></div>
-
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Here are some of my recent projects that showcase my skills and passion for web development
           </p>
         </div>
 
-        {/* PROJECT CARDS */}
+        {/* CARDS */}
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {projects.map((project) => (
             <Card
@@ -120,67 +116,31 @@ export const Projects = () => {
             >
               <div className="space-y-4">
 
-                {/* TITLE + ICONS */}
                 <div className="flex items-start justify-between">
-                  <h3 className="text-2xl font-bold group-hover:text-primary transition-smooth">
+                  <h3 className="text-2xl font-bold group-hover:text-primary">
                     {project.title}
                   </h3>
 
-                  <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-smooth">
-
-                    <a
-                      href={project.repo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                    >
+                  <div className="flex gap-2 opacity-0 group-hover:opacity-100">
+                    <a href={project.repo} target="_blank">
                       <ExternalLink className="w-5 h-5 text-gray-500 hover:text-black" />
                     </a>
-
-                    <a
-                      href="https://github.com/gokulshanmugam2056"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                    >
+                    <a href="https://github.com/gokulshanmugam2056">
                       <Github className="w-5 h-5 text-gray-500 hover:text-black" />
                     </a>
-
                   </div>
                 </div>
 
-                {/* DETAILS */}
                 <div className="space-y-2 text-sm">
-
-                  <p className="text-muted-foreground">
-                    <span className="font-semibold text-foreground">
-                      Duration:
-                    </span>{" "}
-                    {project.duration}
-                  </p>
-
-                  <p className="text-muted-foreground">
-                    <span className="font-semibold text-foreground">
-                      Role:
-                    </span>{" "}
-                    {project.role}
-                  </p>
-
-                  <p className="text-muted-foreground">
-                    <span className="font-semibold text-foreground">
-                      Team Size:
-                    </span>{" "}
-                    {project.teamSize}
-                  </p>
-
+                  <p><b>Duration:</b> {project.duration}</p>
+                  <p><b>Role:</b> {project.role}</p>
+                  <p><b>Team Size:</b> {project.teamSize}</p>
                 </div>
 
-                {/* DESCRIPTION */}
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground">
                   {project.description}
                 </p>
 
-                {/* TECH STACK */}
                 <div className="flex flex-wrap gap-2 pt-2">
                   {project.techStack.map((tech) => (
                     <Badge key={tech} variant="secondary">
@@ -206,73 +166,67 @@ export const Projects = () => {
             onClick={(e) => e.stopPropagation()}
           >
 
+            {/* VIEW FULL BUTTON */}
+            {selectedProject.images.length > 0 && (
+              <button
+                onClick={() => setFullView(true)}
+                className="absolute top-3 right-3 text-xs bg-black text-white px-3 py-1 rounded"
+              >
+                View Full
+              </button>
+            )}
+
             <h2 className="text-lg font-bold mb-4">
               {selectedProject.title}
             </h2>
 
             {/* FRAME */}
-            <div className="relative flex items-center justify-center border rounded-xl p-3 bg-white">
+            <div className="relative flex items-center justify-center border rounded-xl p-3">
 
-              {/* LEFT ARROW */}
               {selectedProject.images.length > 1 && (
-                <button
-                  onClick={prevImg}
-                  className="absolute left-2 text-gray-400 hover:text-gray-600 text-3xl"
-                >
+                <button onClick={prevImg} className="absolute left-2 text-gray-400 text-3xl">
                   ‹
                 </button>
               )}
 
-              {/* IMAGE */}
-              <div className="w-[550px] h-[240px] flex items-center justify-center bg-white overflow-hidden rounded-lg">
+              <div className="w-[550px] h-[240px] flex items-center justify-center overflow-hidden">
                 {selectedProject.images.length > 0 ? (
                   <img
                     src={selectedProject.images[imgIndex]}
                     className="object-contain max-h-full max-w-full"
                   />
                 ) : (
-                  <div className="text-gray-400">
-                    No images
-                  </div>
+                  <div>No images</div>
                 )}
               </div>
 
-              {/* RIGHT ARROW */}
               {selectedProject.images.length > 1 && (
-                <button
-                  onClick={nextImg}
-                  className="absolute right-2 text-gray-400 hover:text-gray-600 text-3xl"
-                >
+                <button onClick={nextImg} className="absolute right-2 text-gray-400 text-3xl">
                   ›
                 </button>
               )}
 
-              {/* VIEW FULL BUTTON */}
-              {selectedProject.images.length > 0 && (
-                <div className="absolute bottom-2 right-3">
-                  <button
-                    onClick={() => setFullView(true)}
-                    className="bg-black/80 text-white text-xs px-3 py-1 rounded-md hover:bg-black transition"
-                  >
-                    View Full
-                  </button>
-                </div>
-              )}
-
             </div>
+
+            {/* IMAGE COUNT OUTSIDE FRAME */}
+            {selectedProject.images.length > 0 && (
+              <div className="text-center mt-3 text-sm text-gray-500">
+                {imgIndex + 1} / {selectedProject.images.length}
+              </div>
+            )}
 
           </div>
         </div>
       )}
 
-      {/* ================= FULL SCREEN VIEW ================= */}
+      {/* ================= FULL SCREEN ================= */}
       {fullView && selectedProject && (
         <div className="fixed inset-0 bg-black z-[60] flex items-center justify-center">
 
           {/* CLOSE */}
           <button
             onClick={() => setFullView(false)}
-            className="absolute top-4 right-5 text-red-500 text-4xl font-bold hover:text-red-600 transition z-50"
+            className="absolute top-4 right-5 text-red-500 text-2xl font-bold"
           >
             ✕
           </button>
@@ -281,7 +235,7 @@ export const Projects = () => {
           {selectedProject.images.length > 1 && (
             <button
               onClick={prevImg}
-              className="absolute left-6 text-white text-5xl opacity-70 hover:opacity-100"
+              className="absolute left-6 text-gray-300 text-4xl"
             >
               ‹
             </button>
@@ -290,18 +244,23 @@ export const Projects = () => {
           {/* IMAGE */}
           <img
             src={selectedProject.images[imgIndex]}
-            className="max-w-[95%] max-h-[95%] object-contain"
+            className="max-w-[90%] max-h-[90vh] object-contain"
           />
 
           {/* RIGHT */}
           {selectedProject.images.length > 1 && (
             <button
               onClick={nextImg}
-              className="absolute right-6 text-white text-5xl opacity-70 hover:opacity-100"
+              className="absolute right-6 text-gray-300 text-4xl"
             >
               ›
             </button>
           )}
+
+          {/* IMAGE COUNT FULL */}
+          <div className="absolute bottom-3 text-white text-sm">
+            {imgIndex + 1} / {selectedProject.images.length}
+          </div>
 
         </div>
       )}
