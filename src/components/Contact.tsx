@@ -125,8 +125,8 @@ export const Contact = () => {
             >
               <Card className="p-3 shadow-soft hover:shadow-medium transition-smooth flex items-center gap-3 cursor-pointer">
 
-                <div className="p-2 bg-accent-teal/10 rounded-lg">
-                  <Linkedin className="w-5 h-5 text-accent-teal" />
+                <div className="p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
+                  <Linkedin className="w-5 h-5 text-black dark:text-white" />
                 </div>
 
                 <div>
