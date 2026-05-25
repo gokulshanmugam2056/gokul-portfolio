@@ -9,6 +9,9 @@ import project3 from "@/assets/project3.jpg";
 import project4 from "@/assets/project4.jpg";
 import project5 from "@/assets/project5.jpg";
 import project6 from "@/assets/project6.jpg";
+import project7 from "@/assets/project7.jpg";
+import project8 from "@/assets/project8.jpg";
+import project9 from "@/assets/project9.jpg";
 
 const projects = [
   {
@@ -38,7 +41,7 @@ const projects = [
     duration: "November 2024 - December 2024",
     role: "Frontend Developer",
     repo: "https://sridharan-g-2881.github.io/frontend/",
-    images: [project5, project6],
+    images: [project5, project6,project7, project8, project9],
     description:
       "Developed an intelligent web platform to connect students and alumni of the Technical Education Department, Government of Rajasthan. The system enables seamless networking, communication, and knowledge sharing to support career guidance and professional growth.",
     techStack: ["React", "Express.js", "Node.js", "MongoDB"],
