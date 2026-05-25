@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-import { Mail, MapPin } from "lucide-react";
+import { Mail, Linkedin, MapPin } from "lucide-react";
 import { toast } from "sonner";
 
 export const Contact = () => {
@@ -118,39 +118,27 @@ export const Contact = () => {
             </a>
 
             {/* LinkedIn */}
-            <Card className="p-3 shadow-soft hover:shadow-medium transition-smooth flex items-center gap-3">
+            <a
+              href="https://www.linkedin.com/in/gokul-shanmugam-225414272/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Card className="p-3 shadow-soft hover:shadow-medium transition-smooth flex items-center gap-3 cursor-pointer">
 
-              <div className="p-2 bg-accent-blue/10 rounded-lg">
+                <div className="p-2 bg-accent-teal/10 rounded-lg">
+                  <Linkedin className="w-5 h-5 text-accent-teal" />
+                </div>
 
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5 text-accent-blue"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.27c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 11.27h-3v-5.5c0-1.32-1.08-2.4-2.4-2.4s-2.4 1.08-2.4 2.4v5.5h-3v-10h3v1.44c.79-1.17 2.1-1.94 3.6-1.94 2.48 0 4.5 2.02 4.5 4.5v6z" />
-                </svg>
+                <div>
+                  <p className="font-medium">LinkedIn</p>
 
-              </div>
+                  <p className="text-sm text-muted-foreground">
+                    gokulshanmugam2056
+                  </p>
+                </div>
 
-              <div>
-
-                <p className="font-medium">
-                  LinkedIn
-                </p>
-
-                <a
-                  href="https://www.linkedin.com/in/gokul-shanmugam-225414272/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-muted-foreground hover:underline"
-                >
-                  gokulshanmugam2056
-                </a>
-
-              </div>
-
-            </Card>
+              </Card>
+            </a>
 
             {/* Location */}
             <a
