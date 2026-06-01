@@ -100,7 +100,7 @@ export const Contact = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Card className="p-3 shadow-soft hover:shadow-medium transition-smooth flex items-center gap-3 cursor-pointer">
+              <Card className="p-3 shadow-soft hover:shadow-medium hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 cursor-pointer">
 
                 <div className="p-2 bg-accent-teal/10 rounded-lg">
                   <Mail className="w-5 h-5 text-accent-teal" />
@@ -123,7 +123,7 @@ export const Contact = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Card className="p-3 shadow-soft hover:shadow-medium transition-smooth flex items-center gap-3 cursor-pointer">
+              <Card className="p-3 shadow-soft hover:shadow-medium hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 cursor-pointer">
 
                 <div className="p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
                   <Linkedin className="w-5 h-5 text-black dark:text-white" />
@@ -142,26 +142,22 @@ export const Contact = () => {
 
             {/* Location */}
             <a
-              href="https://maps.app.goo.gl/X4pX8KqeC2sF52NK9"
+              href="https://www.google.com/maps/place/Gokul+Control+Panels/@11.5159815,77.1693829,19.36z/data=!4m6!3m5!1s0x3ba8d900425043c9:0xb905e01e90bc130!8m2!3d11.5157519!4d77.1692991!16s%2Fg%2F11z3bflzmx?entry=ttu"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Card className="p-3 shadow-soft hover:shadow-medium transition-smooth flex items-center gap-3 cursor-pointer">
+              <Card className="p-3 shadow-soft hover:shadow-medium hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 cursor-pointer">
 
                 <div className="p-2 bg-accent-coral/10 rounded-lg">
                   <MapPin className="w-5 h-5 text-accent-coral" />
                 </div>
 
                 <div>
+                  <p className="font-medium">Location</p>
 
-                  <p className="font-medium">
-                    Location
+                  <p className="text-sm text-muted-foreground">
+                    Sathyamanglam, Tamil Nadu
                   </p>
-
-                  <p className="text-sm text-muted-foreground hover:underline">
-                    google.com/maps/@...
-                  </p>
-
                 </div>
 
               </Card>
