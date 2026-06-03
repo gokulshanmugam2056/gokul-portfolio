@@ -60,11 +60,11 @@ const SkillItem = ({ name, level }: { name: string; level: number }) => {
 
 export const About = () => {
   return (
-    <section id="about" className="py-20 px-4 bg-muted/30">
+    <section id="about" className="py-12 px-4 bg-muted/30">
       <div className="max-w-7xl mx-auto">
 
         {/* TITLE */}
-        <div className="text-center space-y-4 mb-10">
+        <div className="text-center space-y-3 mb-3">
           <h2 className="text-4xl md:text-5xl font-bold">About Me</h2>
           <div className="w-20 h-1 bg-gradient-accent mx-auto rounded-full"></div>
         </div>

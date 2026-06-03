@@ -38,11 +38,11 @@ const extracurricular = [
 
 export const Achievements = () => {
   return (
-    <section id="achievements" className="py-16 px-4 bg-muted/30">
+    <section id="achievements" className="py-12 px-4 bg-muted/30">
       <div className="max-w-7xl mx-auto">
 
         {/* Heading */}
-        <div className="text-center space-y-2 mb-12">
+        <div className="text-center space-y-2 mb-3">
           <h2 className="text-4xl md:text-5xl font-bold">
             Achievements & Extracurricular
           </h2>
