@@ -65,12 +65,12 @@ export const Hero = () => {
           <div className="flex-1 flex justify-center animate-fade-in">
             <div className="relative">
 
-              <div className="absolute inset-0 gradient-accent rounded-full blur-3xl opacity-30 animate-pulse"></div>
+              <div className="absolute inset-0 gradient-accent rounded-full blur-3xl opacity-20 animate-pulse"></div>
 
               <img
                 src={myPhoto}
                 alt="Gokul S"
-                className="relative w-64 h-64 md:w-80 md:h-80 rounded-full object-cover shadow-lg border-4 border-white"
+                className="relative w-70 h-70 md:w-80 md:h-80 rounded-full object-cover shadow-lg border-4 border-white"
               />
 
             </div>
