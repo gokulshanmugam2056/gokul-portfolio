@@ -41,7 +41,7 @@ const projects = [
     duration: "November 2024 - December 2024",
     role: "Frontend Developer",
     repo: "https://sridharan-g-2881.github.io/frontend/",
-    images: [project5, project6,project7, project8, project9],
+    images: [project5, project6, project7, project8, project9],
     description:
       "Developed an intelligent web platform to connect students and alumni of the Technical Education Department, Government of Rajasthan. The system enables seamless networking, communication, and knowledge sharing to support career guidance and professional growth.",
     techStack: ["React", "Express.js", "Node.js", "MongoDB"],
@@ -78,20 +78,22 @@ export const Projects = () => {
     setFullView(false);
   };
 
+  // NO LOOP
   const nextImg = () => {
     setImgIndex((prev) =>
-      selectedProject
-        ? (prev + 1) % selectedProject.images.length
+      selectedProject &&
+      prev < selectedProject.images.length - 1
+        ? prev + 1
         : prev
     );
   };
 
+  // NO LOOP
   const prevImg = () => {
     setImgIndex((prev) =>
-      selectedProject
-        ? prev === 0
-          ? selectedProject.images.length - 1
-          : prev - 1
+      selectedProject &&
+      prev > 0
+        ? prev - 1
         : prev
     );
   };
@@ -102,8 +104,12 @@ export const Projects = () => {
 
         {/* TITLE */}
         <div className="text-center space-y-3 mb-3">
-          <h2 className="text-4xl md:text-5xl font-bold">My Projects</h2>
+          <h2 className="text-4xl md:text-5xl font-bold">
+            My Projects
+          </h2>
+
           <div className="w-20 h-1 bg-gradient-accent mx-auto rounded-full"></div>
+
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Here are some of my recent projects that showcase my skills and passion for web development
           </p>
@@ -111,6 +117,7 @@ export const Projects = () => {
 
         {/* CARDS */}
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+
           {projects.map((project) => (
             <Card
               key={project.title}
@@ -119,7 +126,6 @@ export const Projects = () => {
             >
               <div className="space-y-4">
 
-                {/* TITLE ROW (FIXED HERE) */}
                 <div className="flex items-start justify-between gap-4">
 
                   <h3 className="text-2xl font-bold group-hover:text-primary">
@@ -130,10 +136,15 @@ export const Projects = () => {
                     <a href={project.repo} target="_blank">
                       <ExternalLink className="w-5 h-5 text-gray-500 hover:text-black" />
                     </a>
-                    <a href="https://github.com/gokulshanmugam2056">
+
+                    <a
+                      href="https://github.com/gokulshanmugam2056"
+                      target="_blank"
+                    >
                       <Github className="w-5 h-5 text-gray-500 hover:text-black" />
                     </a>
                   </div>
+
                 </div>
 
                 <div className="space-y-2 text-sm">
@@ -157,10 +168,11 @@ export const Projects = () => {
               </div>
             </Card>
           ))}
+
         </div>
       </div>
 
-      {/* ================= MINI MODAL ================= */}
+      {/* MINI MODAL */}
       {selectedProject && (
         <div
           className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
@@ -171,8 +183,8 @@ export const Projects = () => {
             onClick={(e) => e.stopPropagation()}
           >
 
-            {/* TITLE + VIEW FULL (FIXED POSITION) */}
             <div className="flex justify-between items-center mb-4">
+
               <h2 className="text-lg font-bold">
                 {selectedProject.title}
               </h2>
@@ -185,18 +197,23 @@ export const Projects = () => {
                   View Full
                 </button>
               )}
+
             </div>
 
-            {/* FRAME */}
             <div className="relative flex items-center justify-center border rounded-xl p-3 bg-white">
 
               {selectedProject.images.length > 1 && (
-                <button onClick={prevImg} className="absolute left-2 text-gray-400 text-3xl">
+                <button
+                  onClick={prevImg}
+                  disabled={imgIndex === 0}
+                  className="absolute left-2 text-gray-400 text-3xl disabled:opacity-20"
+                >
                   ‹
                 </button>
               )}
 
               <div className="w-[550px] h-[240px] flex items-center justify-center overflow-hidden">
+
                 {selectedProject.images.length > 0 ? (
                   <img
                     src={selectedProject.images[imgIndex]}
@@ -205,26 +222,34 @@ export const Projects = () => {
                 ) : (
                   <div>No images</div>
                 )}
+
               </div>
 
               {selectedProject.images.length > 1 && (
-                <button onClick={nextImg} className="absolute right-2 text-gray-400 text-3xl">
+                <button
+                  onClick={nextImg}
+                  disabled={
+                    imgIndex === selectedProject.images.length - 1
+                  }
+                  className="absolute right-2 text-gray-400 text-3xl disabled:opacity-20"
+                >
                   ›
                 </button>
               )}
 
             </div>
 
-            {/* IMAGE COUNT */}
             <div className="text-center mt-3 text-sm text-gray-500">
-              {imgIndex + 1} / {selectedProject.images.length}
+              {selectedProject.images.length === 0
+                ? "0 / 0"
+                : `${imgIndex + 1} / ${selectedProject.images.length}`}
             </div>
 
           </div>
         </div>
       )}
 
-      {/* ================= FULL SCREEN ================= */}
+      {/* FULL SCREEN */}
       {fullView && selectedProject && (
         <div className="fixed inset-0 bg-black z-[60] flex items-center justify-center">
 
@@ -238,28 +263,40 @@ export const Projects = () => {
           {selectedProject.images.length > 1 && (
             <button
               onClick={prevImg}
-              className="absolute left-6 text-gray-300 text-3xl"
+              disabled={imgIndex === 0}
+              className="absolute left-6 text-gray-300 text-3xl disabled:opacity-20"
             >
               ‹
             </button>
           )}
 
-          <img
-            src={selectedProject.images[imgIndex]}
-            className="max-w-[90%] max-h-[90vh] object-contain"
-          />
+          {selectedProject.images.length > 0 ? (
+            <img
+              src={selectedProject.images[imgIndex]}
+              className="max-w-[90%] max-h-[90vh] object-contain"
+            />
+          ) : (
+            <div className="text-white">
+              No images
+            </div>
+          )}
 
           {selectedProject.images.length > 1 && (
             <button
               onClick={nextImg}
-              className="absolute right-6 text-gray-300 text-3xl"
+              disabled={
+                imgIndex === selectedProject.images.length - 1
+              }
+              className="absolute right-6 text-gray-300 text-3xl disabled:opacity-20"
             >
               ›
             </button>
           )}
 
           <div className="absolute bottom-3 text-white text-sm">
-            {imgIndex + 1} / {selectedProject.images.length}
+            {selectedProject.images.length === 0
+              ? "0 / 0"
+              : `${imgIndex + 1} / ${selectedProject.images.length}`}
           </div>
 
         </div>
