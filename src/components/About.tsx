@@ -79,46 +79,64 @@ export const About = () => {
         </div>
 
         {/* SKILLS */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8">
 
           {/* Programming */}
-          <Card className="p-6 shadow-soft">
+          <Card className="p-4 shadow-soft">
             <div className="flex items-center gap-3 mb-6">
               <Code2 className="w-6 h-6 text-accent-teal" />
-              <h4 className="font-bold text-lg">Programming Languages</h4>
+              <h4 className="font-bold text-lg">
+                Programming Languages
+              </h4>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               {programmingSkills.map((s) => (
-                <SkillItem key={s.name} name={s.name} level={s.level} />
+                <SkillItem
+                  key={s.name}
+                  name={s.name}
+                  level={s.level}
+                />
               ))}
             </div>
           </Card>
 
           {/* Web */}
-          <Card className="p-6 shadow-soft">
+          <Card className="p-4 shadow-soft">
             <div className="flex items-center gap-3 mb-6">
               <Globe className="w-6 h-6 text-accent-purple" />
-              <h4 className="font-bold text-lg">Web & Backend Technologies</h4>
+              <h4 className="font-bold text-lg">
+                Web & Backend Technologies
+              </h4>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               {webSkills.map((s) => (
-                <SkillItem key={s.name} name={s.name} level={s.level} />
+                <SkillItem
+                  key={s.name}
+                  name={s.name}
+                  level={s.level}
+                />
               ))}
             </div>
           </Card>
 
           {/* Database */}
-          <Card className="p-6 shadow-soft md:col-span-2">
+          <Card className="p-4 shadow-soft md:col-span-2">
             <div className="flex items-center gap-3 mb-6">
               <Database className="w-6 h-6 text-accent-coral" />
-              <h4 className="font-bold text-lg">Database</h4>
+              <h4 className="font-bold text-lg">
+                Database
+              </h4>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {dbSkills.map((s) => (
-                <SkillItem key={s.name} name={s.name} level={s.level} />
+                <SkillItem
+                  key={s.name}
+                  name={s.name}
+                  level={s.level}
+                />
               ))}
             </div>
           </Card>
