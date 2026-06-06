@@ -52,16 +52,16 @@ export const Navigation = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerClass}`}
       >
-        <div className="w-full pl-2 pr-4 sm:pl-4 sm:pr-6 lg:pl-6 lg:pr-8">
+        <div className="w-full pl-6 pr-4 sm:pl-8 sm:pr-6 lg:pl-10 lg:pr-8">
 
           <div className="flex items-center justify-between h-16">
 
             {/* LOGO */}
             <Link
               to="/"
-              className="text-2xl md:text-3xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-red-500"
+              className="text-2xl md:text-3xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-purple-500"
             >
-              Gokul S
+              Gokul S | Portfolio
             </Link>
 
             {/* DESKTOP MENU */}
