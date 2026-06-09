@@ -133,16 +133,25 @@ export const Projects = () => {
                   </h3>
 
                   <div className="flex gap-2 opacity-0 group-hover:opacity-100">
-                    <a href={project.repo} target="_blank">
+
+                    <a
+                      href={project.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <ExternalLink className="w-5 h-5 text-gray-500 hover:text-black" />
                     </a>
 
                     <a
                       href="https://github.com/gokulshanmugam2056"
                       target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <Github className="w-5 h-5 text-gray-500 hover:text-black" />
                     </a>
+
                   </div>
 
                 </div>
