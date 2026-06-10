@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Design System */
 
 @layer base {
   :root {
@@ -39,16 +37,44 @@ All colors MUST be HSL.
     --ring: 230 60% 45%;
 
     --radius: 0.75rem;
-    
-    --gradient-primary: linear-gradient(135deg, hsl(230 60% 25%) 0%, hsl(230 60% 45%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(230 60% 25%) 0%, hsl(280 50% 40%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(180 65% 50%) 0%, hsl(270 60% 65%) 100%);
-    
-    --shadow-soft: 0 2px 8px hsl(220 10% 20% / 0.08);
-    --shadow-medium: 0 4px 16px hsl(220 10% 20% / 0.12);
-    --shadow-glow: 0 0 30px hsl(230 60% 45% / 0.2);
-    
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --gradient-primary:
+      linear-gradient(
+        135deg,
+        hsl(230 60% 25%) 0%,
+        hsl(230 60% 45%) 100%
+      );
+
+    --gradient-hero:
+      linear-gradient(
+        135deg,
+        hsl(230 60% 25%) 0%,
+        hsl(280 50% 40%) 100%
+      );
+
+    --gradient-accent:
+      linear-gradient(
+        135deg,
+        hsl(180 65% 50%) 0%,
+        hsl(270 60% 65%) 100%
+      );
+
+    --shadow-soft:
+      0 2px 8px hsl(220 10% 20% / 0.08);
+
+    --shadow-medium:
+      0 4px 16px hsl(220 10% 20% / 0.12);
+
+    --shadow-glow:
+      0 0 30px hsl(230 60% 45% / 0.2);
+
+    --transition-smooth:
+      all 0.3s cubic-bezier(
+        0.4,
+        0,
+        0.2,
+        1
+      );
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -72,7 +98,6 @@ All colors MUST be HSL.
 
     --primary: 230 60% 55%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 230 60% 65%;
 
     --secondary: 280 50% 70%;
     --secondary-foreground: 222 47% 11%;
@@ -90,62 +115,188 @@ All colors MUST be HSL.
     --border: 217 33% 20%;
     --input: 217 33% 20%;
     --ring: 230 60% 65%;
-
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   * {
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
-  }
-
   html {
     scroll-behavior: smooth;
-
-    /* Prevent navbar shifting between pages */
     overflow-y: scroll;
     scrollbar-gutter: stable;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+
+    font-family:
+      "Inter",
+      sans-serif;
+
+    overflow-x: hidden;
   }
 }
 
 @layer utilities {
+
+  /* Existing */
+
   .gradient-primary {
-    background: var(--gradient-primary);
+    background:
+      var(--gradient-primary);
   }
-  
+
   .gradient-hero {
-    background: var(--gradient-hero);
+    background:
+      var(--gradient-hero);
   }
-  
+
   .gradient-accent {
-    background: var(--gradient-accent);
+    background:
+      var(--gradient-accent);
   }
-  
+
   .shadow-soft {
-    box-shadow: var(--shadow-soft);
+    box-shadow:
+      var(--shadow-soft);
   }
-  
+
   .shadow-medium {
-    box-shadow: var(--shadow-medium);
+    box-shadow:
+      var(--shadow-medium);
   }
-  
+
   .shadow-glow {
-    box-shadow: var(--shadow-glow);
+    box-shadow:
+      var(--shadow-glow);
   }
-  
+
   .transition-smooth {
-    transition: var(--transition-smooth);
+    transition:
+      var(--transition-smooth);
+  }
+
+  /* FLOAT */
+
+  @keyframes float {
+
+    0% {
+      transform:
+        translateY(0);
+    }
+
+    50% {
+      transform:
+        translateY(-12px);
+    }
+
+    100% {
+      transform:
+        translateY(0);
+    }
+  }
+
+  .animate-float {
+    animation:
+      float 4s ease-in-out infinite;
+  }
+
+  /* FADE */
+
+  @keyframes fade-up {
+
+    from {
+      opacity: 0;
+
+      transform:
+        translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+
+      transform:
+        translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation:
+      fade-up 0.8s ease forwards;
+  }
+
+  /* GLOW */
+
+  @keyframes pulse-glow {
+
+    0% {
+      opacity: .2;
+    }
+
+    50% {
+      opacity: .4;
+    }
+
+    100% {
+      opacity: .2;
+    }
+  }
+
+  .animate-glow {
+    animation:
+      pulse-glow 3s infinite;
+  }
+
+  /* HOVER */
+
+  .hover-lift {
+    transition:
+      transform .3s,
+      box-shadow .3s;
+  }
+
+  .hover-lift:hover {
+    transform:
+      translateY(-5px);
+
+    box-shadow:
+      0 12px 30px
+      hsl(230 60% 45% / .25);
+  }
+
+  /* GLASS */
+
+  .glass {
+
+    background:
+      hsl(
+        0
+        0%
+        100%
+        / .08
+      );
+
+    backdrop-filter:
+      blur(10px);
+
+    border:
+      1px solid
+      hsl(
+        0
+        0%
+        100%
+        / .15
+      );
+  }
+
+  /* SCROLLBAR */
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
   }
 }

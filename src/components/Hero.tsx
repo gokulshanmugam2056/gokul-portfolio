@@ -1,6 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
+import {
+  ArrowDown,
+  Download,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { TypeAnimation } from "react-type-animation";
+import resumeFile from "@/assets/GOKUL S.pdf";
 
 import myPhoto from "@/assets/myphoto.jpg";
 
@@ -13,24 +18,54 @@ export const Hero = () => {
       className="min-h-screen flex items-center justify-center pt-16 px-4 bg-gradient-to-br from-purple-700 to-indigo-900"
     >
       <div className="max-w-7xl mx-auto w-full">
+
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
 
-          {/* Text Content */}
+          {/* Text */}
           <div className="flex-1 text-center md:text-left space-y-6 animate-fade-in">
 
-            <div className="space-y-2">
-              <p className="text-accent-teal font-medium text-lg">
+            <div className="space-y-3">
+
+              <p className="text-accent-teal font-medium text-lg leading-none">
                 Hi, I'm
               </p>
 
-              <h1 className="text-5xl md:text-7xl font-bold text-white">
+              <h1
+                className="
+                  text-5xl
+                  md:text-7xl
+                  font-bold
+                  text-white
+                  leading-tight
+                  tracking-tight
+                  break-words
+                  md:-ml-2
+                "
+              >
                 Gokul S
               </h1>
+
             </div>
 
-            <p className="text-xl md:text-2xl text-gray-200">
-              Web Developer | Designer | Tech Enthusiast
-            </p>
+            <div className="min-h-[38px] flex items-center"></div>
+
+            {/* Typing Animation */}
+            <div className="h-[40px]">
+              <TypeAnimation
+                sequence={[
+                  "Web Developer",
+                  1500,
+                  "Designer",
+                  1500,
+                  "Tech Enthusiast",
+                  1500,
+                ]}
+                wrapper="p"
+                speed={50}
+                repeat={Infinity}
+                className="text-xl md:text-2xl text-gray-200"
+              />
+            </div>
 
             <p className="text-lg text-gray-300 max-w-xl">
               Crafting beautiful, functional, and user-centric digital
@@ -40,51 +75,112 @@ export const Hero = () => {
             {/* Buttons */}
             <div className="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
 
-              {/* Projects Button */}
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-teal-400 to-cyan-400 text-white shadow-lg hover:scale-105 transition-transform"
+                className="
+                  bg-gradient-to-r
+                  from-teal-400
+                  to-cyan-400
+                  text-white
+                  shadow-lg
+                  hover:scale-105
+                  transition-transform
+                "
                 onClick={() => navigate("/projects")}
               >
                 View My Work
               </Button>
 
-              {/* Contact Button */}
               <Button
                 size="lg"
                 variant="outline"
+                className="hover:scale-105 transition"
                 onClick={() => navigate("/contact")}
               >
                 Get in Touch
               </Button>
 
+              {/* Resume */}
+              <Button
+                size="lg"
+                variant="secondary"
+                className="gap-2 hover-lift"
+                asChild
+              >
+                <a
+                  href={resumeFile}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                >
+                  <Download size={18} />
+                  Resume
+                </a>
+              </Button>
+
             </div>
+
+            
           </div>
 
           {/* Profile Image */}
           <div className="flex-1 flex justify-center animate-fade-in">
-            <div className="relative">
 
-              <div className="absolute inset-0 gradient-accent rounded-full blur-3xl opacity-20 animate-pulse"></div>
+            <div className="relative animate-float">
+
+              <div
+                className="
+                  absolute
+                  inset-0
+                  gradient-accent
+                  rounded-full
+                  blur-3xl
+                  opacity-20
+                  animate-pulse
+                "
+              />
 
               <img
                 src={myPhoto}
                 alt="Gokul S"
-                className="relative w-70 h-70 md:w-80 md:h-80 rounded-full object-cover shadow-lg border-4 border-white"
+                className="
+                  relative
+                  w-70
+                  h-70
+                  md:w-80
+                  md:h-80
+                  rounded-full
+                  object-cover
+                  shadow-lg
+                  border-4
+                  border-white
+                  hover:scale-105
+                  transition
+                  duration-500
+                "
               />
 
             </div>
+
           </div>
+
         </div>
 
-        {/* Scroll Indicator */}
+        {/* Scroll */}
         <div className="flex justify-center mt-16 animate-bounce">
+
           <button
             onClick={() => navigate("/about")}
-            className="text-gray-200 hover:text-white transition-colors"
+            className="
+              text-gray-200
+              hover:text-white
+              hover:scale-125
+              transition
+            "
           >
             <ArrowDown className="w-6 h-6" />
           </button>
+
         </div>
 
       </div>
