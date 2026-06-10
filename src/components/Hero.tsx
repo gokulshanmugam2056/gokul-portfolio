@@ -5,8 +5,8 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
-import resumeFile from "@/assets/GOKUL S.pdf";
 
+import resumeFile from "@/assets/GOKUL S.pdf";
 import myPhoto from "@/assets/myphoto.jpg";
 
 export const Hero = () => {
@@ -47,15 +47,11 @@ export const Hero = () => {
 
             </div>
 
-            <div className="min-h-[38px] flex items-center"></div>
-
-            {/* Typing Animation */}
+            {/* Typing */}
             <div className="h-[40px]">
               <TypeAnimation
                 sequence={[
                   "Web Developer",
-                  1500,
-                  "Designer",
                   1500,
                   "Tech Enthusiast",
                   1500,
@@ -75,36 +71,18 @@ export const Hero = () => {
             {/* Buttons */}
             <div className="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
 
-              <Button
-                size="lg"
-                className="
-                  bg-gradient-to-r
-                  from-teal-400
-                  to-cyan-400
-                  text-white
-                  shadow-lg
-                  hover:scale-105
-                  transition-transform
-                "
-                onClick={() => navigate("/projects")}
-              >
-                View My Work
-              </Button>
-
-              <Button
-                size="lg"
-                variant="outline"
-                className="hover:scale-105 transition"
-                onClick={() => navigate("/contact")}
-              >
-                Get in Touch
-              </Button>
-
               {/* Resume */}
               <Button
                 size="lg"
-                variant="secondary"
-                className="gap-2 hover-lift"
+                variant="outline"
+                className="
+                  border-purple-300
+                  text-white
+                  bg-purple-500/20
+                  hover:bg-purple-500/40
+                  hover:scale-105
+                  transition
+                "
                 asChild
               >
                 <a
@@ -113,17 +91,49 @@ export const Hero = () => {
                   rel="noopener noreferrer"
                   download
                 >
-                  <Download size={18} />
+                  <Download className="mr-2 h-5 w-5" />
                   Resume
                 </a>
               </Button>
 
-            </div>
+              {/* View My Work */}
+              <Button
+                size="lg"
+                variant="outline"
+                className="
+                  border-purple-300
+                  text-white
+                  bg-purple-500/20
+                  hover:bg-purple-500/40
+                  hover:scale-105
+                  transition
+                "
+                onClick={() => navigate("/projects")}
+              >
+                View My Work
+              </Button>
 
-            
+              {/* Get in Touch */}
+              <Button
+                size="lg"
+                variant="outline"
+                className="
+                  border-purple-300
+                  text-white
+                  bg-purple-500/20
+                  hover:bg-purple-500/40
+                  hover:scale-105
+                  transition
+                "
+                onClick={() => navigate("/contact")}
+              >
+                Get in Touch
+              </Button>
+
+            </div>
           </div>
 
-          {/* Profile Image */}
+          {/* Image */}
           <div className="flex-1 flex justify-center animate-fade-in">
 
             <div className="relative animate-float">
@@ -142,7 +152,7 @@ export const Hero = () => {
 
               <img
                 src={myPhoto}
-                alt="Gokul S"
+                alt="GokUL S"
                 className="
                   relative
                   w-70
