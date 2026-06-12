@@ -24,9 +24,9 @@ export const Hero = () => {
           {/* Text */}
           <div className="flex-1 text-center md:text-left space-y-6 animate-fade-in">
 
-            <div className="space-y-3">
+            <div className="space-y-2">
 
-              <p className="text-accent-teal font-medium text-lg leading-none">
+              <p className="text-accent-teal font-medium text-lg">
                 Hi, I'm
               </p>
 
@@ -36,9 +36,7 @@ export const Hero = () => {
                   md:text-7xl
                   font-bold
                   text-white
-                  leading-tight
                   tracking-tight
-                  break-words
                   md:-ml-2
                 "
               >
@@ -49,6 +47,7 @@ export const Hero = () => {
 
             {/* Typing */}
             <div className="h-[40px]">
+
               <TypeAnimation
                 sequence={[
                   "Web Developer",
@@ -61,6 +60,7 @@ export const Hero = () => {
                 repeat={Infinity}
                 className="text-xl md:text-2xl text-gray-200"
               />
+
             </div>
 
             <p className="text-lg text-gray-300 max-w-xl">
@@ -81,7 +81,8 @@ export const Hero = () => {
                   bg-purple-500/20
                   hover:bg-purple-500/40
                   hover:scale-105
-                  transition
+                  transition-all
+                  duration-300
                 "
                 asChild
               >
@@ -96,7 +97,7 @@ export const Hero = () => {
                 </a>
               </Button>
 
-              {/* View My Work */}
+              {/* Projects */}
               <Button
                 size="lg"
                 variant="outline"
@@ -106,14 +107,15 @@ export const Hero = () => {
                   bg-purple-500/20
                   hover:bg-purple-500/40
                   hover:scale-105
-                  transition
+                  transition-all
+                  duration-300
                 "
                 onClick={() => navigate("/projects")}
               >
                 View My Work
               </Button>
 
-              {/* Get in Touch */}
+              {/* Contact */}
               <Button
                 size="lg"
                 variant="outline"
@@ -123,7 +125,8 @@ export const Hero = () => {
                   bg-purple-500/20
                   hover:bg-purple-500/40
                   hover:scale-105
-                  transition
+                  transition-all
+                  duration-300
                 "
                 onClick={() => navigate("/contact")}
               >
@@ -131,10 +134,10 @@ export const Hero = () => {
               </Button>
 
             </div>
+
           </div>
 
-
-          {/* Image */}
+          {/* Profile */}
           <div className="flex-1 flex justify-center animate-fade-in">
 
             <div
@@ -154,25 +157,25 @@ export const Hero = () => {
               />
 
               <img
-              src={myPhoto}
-              alt="Gokul S"
-              draggable={false}
-              onContextMenu={(e) => e.preventDefault()}
-              className="
-                relative
-                w-70
-                h-70
-                md:w-80
-                md:h-80
-                rounded-full
-                object-cover
-                shadow-lg
-                border-4
-                border-white
-                select-none
-                pointer-events-auto
-              "
-            />
+                src={myPhoto}
+                alt="Gokul S"
+                draggable={false}
+                onContextMenu={(e) => e.preventDefault()}
+                className="
+                  protect-image
+                  relative
+                  w-70
+                  h-70
+                  md:w-80
+                  md:h-80
+                  rounded-full
+                  object-cover
+                  shadow-lg
+                  border-4
+                  border-white
+                  select-none
+                "
+              />
 
             </div>
 
@@ -189,7 +192,8 @@ export const Hero = () => {
               text-gray-200
               hover:text-white
               hover:scale-125
-              transition
+              transition-all
+              duration-300
             "
           >
             <ArrowDown className="w-6 h-6" />
