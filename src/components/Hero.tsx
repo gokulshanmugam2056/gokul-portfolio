@@ -133,10 +133,11 @@ export const Hero = () => {
             </div>
           </div>
 
+
           {/* Image */}
           <div className="flex-1 flex justify-center animate-fade-in">
 
-            <div className="relative animate-float">
+            <div className="relative">
 
               <div
                 className="
@@ -146,13 +147,13 @@ export const Hero = () => {
                   rounded-full
                   blur-3xl
                   opacity-20
-                  animate-pulse
                 "
               />
 
               <img
                 src={myPhoto}
-                alt="GokUL S"
+                alt="Gokul S"
+                draggable={false}
                 className="
                   relative
                   w-70
@@ -164,9 +165,7 @@ export const Hero = () => {
                   shadow-lg
                   border-4
                   border-white
-                  hover:scale-105
-                  transition
-                  duration-500
+                  select-none
                 "
               />
 
