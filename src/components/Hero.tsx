@@ -137,7 +137,10 @@ export const Hero = () => {
           {/* Image */}
           <div className="flex-1 flex justify-center animate-fade-in">
 
-            <div className="relative">
+            <div
+              className="relative"
+              onContextMenu={(e) => e.preventDefault()}
+            >
 
               <div
                 className="
@@ -151,23 +154,25 @@ export const Hero = () => {
               />
 
               <img
-                src={myPhoto}
-                alt="Gokul S"
-                draggable={false}
-                className="
-                  relative
-                  w-70
-                  h-70
-                  md:w-80
-                  md:h-80
-                  rounded-full
-                  object-cover
-                  shadow-lg
-                  border-4
-                  border-white
-                  select-none
-                "
-              />
+              src={myPhoto}
+              alt="Gokul S"
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
+              className="
+                relative
+                w-70
+                h-70
+                md:w-80
+                md:h-80
+                rounded-full
+                object-cover
+                shadow-lg
+                border-4
+                border-white
+                select-none
+                pointer-events-auto
+              "
+            />
 
             </div>
 
