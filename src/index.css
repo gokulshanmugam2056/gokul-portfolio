@@ -5,6 +5,7 @@
 /* Design System */
 
 @layer base {
+
   :root {
     --background: 0 0% 100%;
     --foreground: 222 47% 11%;
@@ -60,19 +61,19 @@
       );
 
     --shadow-soft:
-      0 2px 8px hsl(220 10% 20% / 0.08);
+      0 2px 8px hsl(220 10% 20% / .08);
 
     --shadow-medium:
-      0 4px 16px hsl(220 10% 20% / 0.12);
+      0 4px 16px hsl(220 10% 20% / .12);
 
     --shadow-glow:
-      0 0 30px hsl(230 60% 45% / 0.2);
+      0 0 30px hsl(230 60% 45% / .2);
 
     --transition-smooth:
-      all 0.3s cubic-bezier(
-        0.4,
+      all .3s cubic-bezier(
+        .4,
         0,
-        0.2,
+        .2,
         1
       );
 
@@ -87,6 +88,7 @@
   }
 
   .dark {
+
     --background: 222 47% 11%;
     --foreground: 0 0% 98%;
 
@@ -130,71 +132,57 @@
   body {
     @apply bg-background text-foreground;
 
-    font-family:
-      "Inter",
-      sans-serif;
+    font-family: "Inter", sans-serif;
 
     overflow-x: hidden;
   }
+
 }
 
 @layer utilities {
 
-  /* Existing */
-
   .gradient-primary {
-    background:
-      var(--gradient-primary);
+    background: var(--gradient-primary);
   }
 
   .gradient-hero {
-    background:
-      var(--gradient-hero);
+    background: var(--gradient-hero);
   }
 
   .gradient-accent {
-    background:
-      var(--gradient-accent);
+    background: var(--gradient-accent);
   }
 
   .shadow-soft {
-    box-shadow:
-      var(--shadow-soft);
+    box-shadow: var(--shadow-soft);
   }
 
   .shadow-medium {
-    box-shadow:
-      var(--shadow-medium);
+    box-shadow: var(--shadow-medium);
   }
 
   .shadow-glow {
-    box-shadow:
-      var(--shadow-glow);
+    box-shadow: var(--shadow-glow);
   }
 
   .transition-smooth {
-    transition:
-      var(--transition-smooth);
+    transition: var(--transition-smooth);
   }
-
-  /* FLOAT */
 
   @keyframes float {
 
     0% {
-      transform:
-        translateY(0);
+      transform: translateY(0);
     }
 
     50% {
-      transform:
-        translateY(-12px);
+      transform: translateY(-12px);
     }
 
     100% {
-      transform:
-        translateY(0);
+      transform: translateY(0);
     }
+
   }
 
   .animate-float {
@@ -202,31 +190,24 @@
       float 4s ease-in-out infinite;
   }
 
-  /* FADE */
-
   @keyframes fade-up {
 
     from {
       opacity: 0;
-
-      transform:
-        translateY(30px);
+      transform: translateY(30px);
     }
 
     to {
       opacity: 1;
-
-      transform:
-        translateY(0);
+      transform: translateY(0);
     }
+
   }
 
   .animate-fade-in {
     animation:
-      fade-up 0.8s ease forwards;
+      fade-up .8s ease forwards;
   }
-
-  /* GLOW */
 
   @keyframes pulse-glow {
 
@@ -241,6 +222,7 @@
     100% {
       opacity: .2;
     }
+
   }
 
   .animate-glow {
@@ -248,49 +230,38 @@
       pulse-glow 3s infinite;
   }
 
-  /* HOVER */
-
   .hover-lift {
+
     transition:
       transform .3s,
       box-shadow .3s;
+
   }
 
   .hover-lift:hover {
+
     transform:
       translateY(-5px);
 
     box-shadow:
       0 12px 30px
-      hsl(230 60% 45% / .25);
-  }
+      hsl(230 60% 45% /.25);
 
-  /* GLASS */
+  }
 
   .glass {
 
     background:
-      hsl(
-        0
-        0%
-        100%
-        / .08
-      );
+      hsl(0 0% 100% /.08);
 
     backdrop-filter:
       blur(10px);
 
     border:
       1px solid
-      hsl(
-        0
-        0%
-        100%
-        / .15
-      );
-  }
+      hsl(0 0% 100% /.15);
 
-  /* SCROLLBAR */
+  }
 
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -300,23 +271,36 @@
     scrollbar-width: none;
   }
 
-    /* IMAGE PROTECTION */
+  /* IMAGE PROTECTION */
 
   img {
+
     -webkit-user-drag: none;
-    user-select: none;
 
     -webkit-touch-callout: none;
 
-    pointer-events: auto;
+    user-select: none;
+
+    -moz-user-select: none;
+
+    -ms-user-select: none;
+
   }
 
   .protect-image {
-    user-select: none;
 
     -webkit-user-drag: none;
 
     -webkit-touch-callout: none;
+
+    user-select: none;
+
+    pointer-events: auto;
+
   }
-  
+
+  .protect-image::selection {
+    background: transparent;
+  }
+
 }
