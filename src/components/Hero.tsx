@@ -90,9 +90,7 @@ export const Hero = () => {
                   href={resumeFile}
                   target="_blank"
                   rel="noopener noreferrer"
-                  download
                 >
-                  <Download className="mr-2 h-5 w-5" />
                   Resume
                 </a>
               </Button>
