@@ -259,57 +259,139 @@ export const Projects = () => {
       )}
 
       {/* FULL SCREEN */}
-      {fullView && selectedProject && (
-        <div className="fixed inset-0 bg-black z-[60] flex items-center justify-center">
+{fullView && selectedProject && (
+  <div
+    className="
+      fixed
+      inset-0
+      bg-black/90
+      z-[60]
+      flex
+      items-center
+      justify-center
+      p-6
+    "
+  >
 
+    <div
+      className="
+        bg-white
+        rounded-2xl
+        w-[95vw]
+        h-[92vh]
+        p-5
+        flex
+        flex-col
+      "
+    >
+
+      {/* HEADER */}
+      <div className="flex justify-between items-center mb-5">
+
+        <h2 className="text-xl font-bold">
+          {selectedProject.title}
+        </h2>
+
+        <button
+          onClick={() => setFullView(false)}
+          className="
+            bg-red-500
+            text-white
+            px-4
+            py-2
+            rounded-lg
+            hover:bg-red-600
+          "
+        >
+          ✕
+        </button>
+
+      </div>
+
+      {/* IMAGE AREA */}
+      <div
+        className="
+          flex-1
+          relative
+          border
+          rounded-xl
+          overflow-hidden
+          flex
+          items-center
+          justify-center
+          bg-white
+        "
+      >
+
+        {selectedProject.images.length > 1 && (
           <button
-            onClick={() => setFullView(false)}
-            className="absolute top-4 right-5 text-red-500 text-2xl font-bold"
+            onClick={prevImg}
+            disabled={imgIndex === 0}
+            className="
+              absolute
+              left-5
+              z-20
+              text-4xl
+              text-gray-500
+              disabled:opacity-20
+            "
           >
-            ✕
+            ‹
           </button>
+        )}
 
-          {selectedProject.images.length > 1 && (
-            <button
-              onClick={prevImg}
-              disabled={imgIndex === 0}
-              className="absolute left-6 text-gray-300 text-3xl disabled:opacity-20"
-            >
-              ‹
-            </button>
-          )}
+        {selectedProject.images.length > 0 ? (
 
-          {selectedProject.images.length > 0 ? (
-            <img
-              src={selectedProject.images[imgIndex]}
-              className="max-w-[90%] max-h-[90vh] object-contain"
-            />
-          ) : (
-            <div className="text-white">
-              No images
-            </div>
-          )}
+          <img
+            src={selectedProject.images[imgIndex]}
+            className="
+              max-w-full
+              max-h-full
+              object-contain
+            "
+          />
 
-          {selectedProject.images.length > 1 && (
-            <button
-              onClick={nextImg}
-              disabled={
-                imgIndex === selectedProject.images.length - 1
-              }
-              className="absolute right-6 text-gray-300 text-3xl disabled:opacity-20"
-            >
-              ›
-            </button>
-          )}
+        ) : (
 
-          <div className="absolute bottom-3 text-white text-sm">
-            {selectedProject.images.length === 0
-              ? "0 / 0"
-              : `${imgIndex + 1} / ${selectedProject.images.length}`}
-          </div>
+          <div>No images</div>
 
-        </div>
-      )}
+        )}
+
+        {selectedProject.images.length > 1 && (
+          <button
+            onClick={nextImg}
+            disabled={
+              imgIndex ===
+              selectedProject.images.length - 1
+            }
+            className="
+              absolute
+              right-5
+              z-20
+              text-4xl
+              text-gray-500
+              disabled:opacity-20
+            "
+          >
+            ›
+          </button>
+        )}
+
+      </div>
+
+      {/* COUNTER */}
+      <div className="text-center mt-4 text-gray-500">
+
+        {selectedProject.images.length === 0
+          ? "0 / 0"
+          : `${imgIndex + 1} / ${selectedProject.images.length}`}
+
+      </div>
+
+    </div>
+
+  </div>
+)}
     </section>
   );
 };
