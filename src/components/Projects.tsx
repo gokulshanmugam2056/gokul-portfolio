@@ -37,7 +37,7 @@ const projects = [
   },
 
   {
-    title: "Intelligent Student–Alumni Networking Platform",
+    title: "Intelligent Student-Alumni Networking Platform",
     duration: "November 2024 - December 2024",
     role: "Frontend Developer",
     repo: "https://sridharan-g-2881.github.io/frontend/",
