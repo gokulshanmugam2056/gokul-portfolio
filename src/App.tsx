@@ -16,7 +16,7 @@ import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Achievements from "./pages/Achievements";
 import Contact from "./pages/Contact";
-import FullScreProject from "./pages/ProjectViewer";
+import ProjectViewer from "./pages/ProjectViewer";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
