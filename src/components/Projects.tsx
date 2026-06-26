@@ -253,6 +253,13 @@ export const Projects = () => {
           </div>
         </div>
       )}
+      {fullView && selectedProject && (
+      <ProjectViewer
+        title={selectedProject.title}
+        images={selectedProject.images}
+        onClose={() => setFullView(false)}
+      />
+)}
     </section>
   );
 };
