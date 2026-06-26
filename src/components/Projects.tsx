@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ProjectViewer from "@/components/ProjectViewer";
 
 import project1 from "@/assets/project1.jpg";
 import project2 from "@/assets/project2.jpg";
@@ -65,10 +66,10 @@ const projects = [
 ];
 
 export const Projects = () => {
-  const navigate = useNavigate();
 
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [imgIndex, setImgIndex] = useState(0);
+  const [fullView, setFullView] = useState(false);
 
   const openProject = (project: any) => {
     setSelectedProject(project);
@@ -183,7 +184,7 @@ export const Projects = () => {
         </div>
       </div>
 
-            {/* MINI MODAL */}
+      {/* MINI MODAL */}
       {selectedProject && (
         <div
           className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
@@ -200,14 +201,7 @@ export const Projects = () => {
 
               {selectedProject.images.length > 0 && (
                 <button
-                  onClick={() =>
-                    navigate("/project-view", {
-                      state: {
-                        title: selectedProject.title,
-                        images: selectedProject.images,
-                      },
-                    })
-                  }
+                  onClick={() => setFullView(true)}
                   className="text-xs bg-black text-white px-3 py-1 rounded hover:bg-gray-800"
                 >
                   View Full
