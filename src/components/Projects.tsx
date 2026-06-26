@@ -2,7 +2,6 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import ProjectViewer from "@/components/ProjectViewer";
 
 import project1 from "@/assets/project1.jpg";
@@ -66,36 +65,38 @@ const projects = [
 ];
 
 export const Projects = () => {
+  const [selectedProject, setSelectedProject] = useState<
+    (typeof projects)[0] | null
+  >(null);
 
-  const [selectedProject, setSelectedProject] = useState<any>(null);
   const [imgIndex, setImgIndex] = useState(0);
   const [fullView, setFullView] = useState(false);
 
-  const openProject = (project: any) => {
+  const openProject = (project: (typeof projects)[0]) => {
     setSelectedProject(project);
     setImgIndex(0);
+    setFullView(false);
   };
 
   const closeModal = () => {
     setSelectedProject(null);
+    setImgIndex(0);
+    setFullView(false);
   };
 
   const nextImg = () => {
-    setImgIndex((prev) =>
+    if (
       selectedProject &&
-      prev < selectedProject.images.length - 1
-        ? prev + 1
-        : prev
-    );
+      imgIndex < selectedProject.images.length - 1
+    ) {
+      setImgIndex((prev) => prev + 1);
+    }
   };
 
   const prevImg = () => {
-    setImgIndex((prev) =>
-      selectedProject &&
-      prev > 0
-        ? prev - 1
-        : prev
-    );
+    if (selectedProject && imgIndex > 0) {
+      setImgIndex((prev) => prev - 1);
+    }
   };
 
   return (
@@ -185,7 +186,7 @@ export const Projects = () => {
       </div>
 
       {/* MINI MODAL */}
-      {selectedProject && (
+      {selectedProject && !fullView && (
         <div
           className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
           onClick={closeModal}
@@ -201,11 +202,14 @@ export const Projects = () => {
 
               {selectedProject.images.length > 0 && (
                 <button
-                  onClick={() => setFullView(true)}
-                  className="text-xs bg-black text-white px-3 py-1 rounded hover:bg-gray-800"
-                >
-                  View Full
-                </button>
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setFullView(true);
+                }}
+                className="text-xs bg-black text-white px-3 py-1 rounded hover:bg-gray-800"
+              >
+                View Full
+              </button>
               )}
             </div>
 
@@ -254,12 +258,11 @@ export const Projects = () => {
         </div>
       )}
       {fullView && selectedProject && (
-      <ProjectViewer
-        title={selectedProject.title}
-        images={selectedProject.images}
-        onClose={() => setFullView(false)}
-      />
-)}
+        <ProjectViewer
+          images={selectedProject.images}
+          onClose={() => setFullView(false)}
+        />
+      )}
     </section>
   );
 };
