@@ -1,4 +1,9 @@
 import { useState } from "react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  X,
+} from "lucide-react";
 
 interface Props {
   title: string;
@@ -7,7 +12,6 @@ interface Props {
 }
 
 const ProjectViewer = ({
-  title,
   images,
   onClose,
 }: Props) => {
@@ -26,57 +30,57 @@ const ProjectViewer = ({
   };
 
   return (
-    <div className="fixed inset-0 z-[60] bg-black flex flex-col p-6">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-5">
-        <h1 className="text-white text-2xl font-bold">
-          {title}
-        </h1>
+    <div className="fixed inset-0 z-[100] bg-black">
 
+      {/* Close Button */}
+      <button
+        onClick={onClose}
+        title="Close"
+        className="fixed top-6 right-6 z-[200] bg-red-600 hover:bg-red-700 text-white p-2 rounded-full transition"
+      >
+        <X size={20} />
+      </button>
+
+      {/* Previous */}
+      {images.length > 1 && (
         <button
-          onClick={onClose}
-          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+          onClick={prevImage}
+          disabled={imgIndex === 0}
+          className="fixed left-8 top-1/2 -translate-y-1/2 z-[200] bg-black/70 hover:bg-black text-white p-3 rounded-full disabled:opacity-30 transition"
         >
-          ✕ Close
+          <ChevronLeft size={34} />
         </button>
-      </div>
+      )}
+
+      {/* Next */}
+      {images.length > 1 && (
+        <button
+          onClick={nextImage}
+          disabled={imgIndex === images.length - 1}
+          className="fixed right-8 top-1/2 -translate-y-1/2 z-[200] bg-black/70 hover:bg-black text-white p-3 rounded-full disabled:opacity-30 transition"
+        >
+          <ChevronRight size={34} />
+        </button>
+      )}
 
       {/* Image */}
-      <div className="flex-1 flex items-center justify-center relative">
-        {images.length > 1 && (
-          <button
-            onClick={prevImage}
-            disabled={imgIndex === 0}
-            className="absolute left-5 text-white text-6xl disabled:opacity-30"
-          >
-            ‹
-          </button>
-        )}
-
+      <div className="w-full h-full flex items-center justify-center px-24 py-16">
         {images.length > 0 ? (
           <img
             src={images[imgIndex]}
-            alt={`${title} ${imgIndex + 1}`}
-            className="max-w-full max-h-full object-contain"
+            alt=""
+            className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
           />
         ) : (
-          <p className="text-white text-xl">No Images Available</p>
-        )}
-
-        {images.length > 1 && (
-          <button
-            onClick={nextImage}
-            disabled={imgIndex === images.length - 1}
-            className="absolute right-5 text-white text-6xl disabled:opacity-30"
-          >
-            ›
-          </button>
+          <div className="text-white text-xl">
+            No Images Available
+          </div>
         )}
       </div>
 
       {/* Counter */}
       {images.length > 0 && (
-        <div className="text-center text-white mt-4">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-black/60 px-4 py-2 rounded-full text-white text-sm">
           {imgIndex + 1} / {images.length}
         </div>
       )}
