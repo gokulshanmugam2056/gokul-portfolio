@@ -30,7 +30,6 @@ const ProjectViewer = ({
 
   return (
     <div className="fixed inset-0 z-[9999] bg-black overflow-hidden">
-
       {/* Close Button */}
       <button
         onClick={onClose}
@@ -96,11 +95,6 @@ const ProjectViewer = ({
             flex
             items-center
             gap-4
-            bg-black/60
-            backdrop-blur-md
-            rounded-full
-            px-4
-            py-2
           "
         >
           {/* Previous */}
@@ -108,26 +102,17 @@ const ProjectViewer = ({
             onClick={prevImage}
             disabled={imgIndex === 0}
             className="
-              flex
-              items-center
-              justify-center
-              w-9
-              h-9
-              rounded-full
-              bg-white/15
-              hover:bg-white/30
-              border
-              border-white/20
               text-white
+              hover:text-gray-300
               transition
               disabled:opacity-30
             "
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft size={22} />
           </button>
 
           {/* Counter */}
-          <span className="text-white text-sm font-medium w-14 text-center">
+          <span className="text-white text-sm font-medium min-w-[55px] text-center">
             {imgIndex + 1} / {images.length}
           </span>
 
@@ -136,26 +121,16 @@ const ProjectViewer = ({
             onClick={nextImage}
             disabled={imgIndex === images.length - 1}
             className="
-              flex
-              items-center
-              justify-center
-              w-9
-              h-9
-              rounded-full
-              bg-white/15
-              hover:bg-white/30
-              border
-              border-white/20
               text-white
+              hover:text-gray-300
               transition
               disabled:opacity-30
             "
           >
-            <ChevronRight size={18} />
+            <ChevronRight size={22} />
           </button>
         </div>
       )}
-
     </div>
   );
 };
