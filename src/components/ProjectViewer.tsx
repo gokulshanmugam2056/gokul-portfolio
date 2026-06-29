@@ -35,81 +35,38 @@ const ProjectViewer = ({
       <button
         onClick={onClose}
         title="Close"
-        className="fixed top-5 right-5 z-[10000] bg-red-600 hover:bg-red-700 text-white rounded-full p-2 shadow-xl transition"
+        className="
+          fixed
+          top-5
+          right-5
+          z-[10000]
+          bg-red-600
+          hover:bg-red-700
+          text-white
+          rounded-full
+          p-2
+          shadow-xl
+          transition
+        "
       >
         <X size={18} />
       </button>
 
-      {/* Previous Button */}
-      {images.length > 1 && (
-        <button
-          onClick={prevImage}
-          disabled={imgIndex === 0}
-          className="
-            fixed
-            left-6
-            top-1/2
-            -translate-y-1/2
-            z-[10000]
-            bg-white/20
-            hover:bg-white/40
-            backdrop-blur-sm
-            border
-            border-white/30
-            text-white
-            rounded-full
-            p-3
-            transition
-            disabled:opacity-25
-            disabled:cursor-not-allowed
-          "
-        >
-          <ChevronLeft size={38} strokeWidth={2.5} />
-        </button>
-      )}
-
-      {/* Next Button */}
-      {images.length > 1 && (
-        <button
-          onClick={nextImage}
-          disabled={imgIndex === images.length - 1}
-          className="
-            fixed
-            right-6
-            top-1/2
-            -translate-y-1/2
-            z-[10000]
-            bg-white/20
-            hover:bg-white/40
-            backdrop-blur-sm
-            border
-            border-white/30
-            text-white
-            rounded-full
-            p-3
-            transition
-            disabled:opacity-25
-            disabled:cursor-not-allowed
-          "
-        >
-          <ChevronRight size={38} strokeWidth={2.5} />
-        </button>
-      )}
-
       {/* Image */}
-      <div className="w-full h-full flex items-center justify-center px-24 py-16">
+      <div className="w-full h-full flex items-center justify-center px-4 pt-4 pb-24">
         {images.length > 0 ? (
           <img
             src={images[imgIndex]}
             alt={`Project ${imgIndex + 1}`}
             className="
-              max-w-full
-              max-h-full
+              w-full
+              h-full
+              max-w-[98vw]
+              max-h-[90vh]
               object-contain
-              rounded-lg
-              shadow-2xl
               select-none
             "
+            draggable={false}
           />
         ) : (
           <div className="text-white text-xl">
@@ -118,12 +75,75 @@ const ProjectViewer = ({
         )}
       </div>
 
-      {/* Counter */}
-      {images.length > 0 && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[10000] bg-black/60 px-5 py-2 rounded-full text-white text-sm backdrop-blur">
-          {imgIndex + 1} / {images.length}
+
+      {/* Bottom Navigation */}
+      {images.length > 1 && (
+        <div
+          className="
+            fixed
+            bottom-4
+            left-1/2
+            -translate-x-1/2
+            z-[10000]
+            flex
+            items-center
+            gap-5
+            bg-black/45
+            backdrop-blur-md
+            px-5
+            py-2
+            rounded-full
+          "
+        >
+
+          {/* Previous */}
+          <button
+            onClick={prevImage}
+            disabled={imgIndex === 0}
+            className="
+              bg-white/20
+              hover:bg-white/40
+              border
+              border-white/30
+              text-white
+              rounded-full
+              p-2
+              transition
+              disabled:opacity-30
+              disabled:cursor-not-allowed
+            "
+          >
+            <ChevronLeft size={20} />
+          </button>
+
+          {/* Counter */}
+          <span className="text-white text-sm font-medium min-w-[55px] text-center">
+            {imgIndex + 1} / {images.length}
+          </span>
+
+          {/* Next */}
+          <button
+            onClick={nextImage}
+            disabled={imgIndex === images.length - 1}
+            className="
+              bg-white/20
+              hover:bg-white/40
+              border
+              border-white/30
+              text-white
+              rounded-full
+              p-2
+              transition
+              disabled:opacity-30
+              disabled:cursor-not-allowed
+            "
+          >
+            <ChevronRight size={20} />
+          </button>
+
         </div>
       )}
+
     </div>
   );
 };
