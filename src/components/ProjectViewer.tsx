@@ -97,15 +97,24 @@ const ProjectViewer = ({
             gap-4
           "
         >
-          {/* Previous */}
           <button
             onClick={prevImage}
             disabled={imgIndex === 0}
             className="
+              w-9
+              h-9
+              flex
+              items-center
+              justify-center
+              rounded-full
+              border
+              border-white/40
+              bg-white/10
+              hover:bg-white/20
               text-white
-              hover:text-gray-300
               transition
               disabled:opacity-30
+              disabled:cursor-not-allowed
             "
           >
             <ChevronLeft size={22} />
@@ -121,6 +130,16 @@ const ProjectViewer = ({
             onClick={nextImage}
             disabled={imgIndex === images.length - 1}
             className="
+              w-9
+              h-9
+              flex
+              items-center
+              justify-center
+              rounded-full
+              border
+              border-white/40
+              bg-white/10
+              hover:bg-white/20
               text-white
               hover:text-gray-300
               transition
