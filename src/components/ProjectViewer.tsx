@@ -29,7 +29,7 @@ const ProjectViewer = ({
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-black">
+    <div className="fixed inset-0 z-[9999] bg-black overflow-hidden">
 
       {/* Close Button */}
       <button
@@ -37,8 +37,8 @@ const ProjectViewer = ({
         title="Close"
         className="
           fixed
-          top-5
-          right-5
+          top-3
+          right-3
           z-[10000]
           bg-red-600
           hover:bg-red-700
@@ -52,21 +52,30 @@ const ProjectViewer = ({
         <X size={18} />
       </button>
 
-      {/* Image */}
-      <div className="w-full h-full flex items-center justify-center px-4 pt-4 pb-24">
+      {/* Image Area */}
+      <div
+        className="
+          absolute
+          inset-x-0
+          top-2
+          bottom-16
+          flex
+          items-center
+          justify-center
+          px-2
+        "
+      >
         {images.length > 0 ? (
           <img
             src={images[imgIndex]}
             alt={`Project ${imgIndex + 1}`}
+            draggable={false}
             className="
-              w-full
-              h-full
-              max-w-[98vw]
-              max-h-[90vh]
+              max-w-full
+              max-h-full
               object-contain
               select-none
             "
-            draggable={false}
           />
         ) : (
           <div className="text-white text-xl">
@@ -75,49 +84,50 @@ const ProjectViewer = ({
         )}
       </div>
 
-
       {/* Bottom Navigation */}
       {images.length > 1 && (
         <div
           className="
             fixed
-            bottom-4
+            bottom-2
             left-1/2
             -translate-x-1/2
             z-[10000]
             flex
             items-center
-            gap-5
-            bg-black/45
+            gap-4
+            bg-black/60
             backdrop-blur-md
-            px-5
-            py-2
             rounded-full
+            px-4
+            py-2
           "
         >
-
           {/* Previous */}
           <button
             onClick={prevImage}
             disabled={imgIndex === 0}
             className="
-              bg-white/20
-              hover:bg-white/40
-              border
-              border-white/30
-              text-white
+              flex
+              items-center
+              justify-center
+              w-9
+              h-9
               rounded-full
-              p-2
+              bg-white/15
+              hover:bg-white/30
+              border
+              border-white/20
+              text-white
               transition
               disabled:opacity-30
-              disabled:cursor-not-allowed
             "
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={18} />
           </button>
 
           {/* Counter */}
-          <span className="text-white text-sm font-medium min-w-[55px] text-center">
+          <span className="text-white text-sm font-medium w-14 text-center">
             {imgIndex + 1} / {images.length}
           </span>
 
@@ -126,21 +136,23 @@ const ProjectViewer = ({
             onClick={nextImage}
             disabled={imgIndex === images.length - 1}
             className="
-              bg-white/20
-              hover:bg-white/40
-              border
-              border-white/30
-              text-white
+              flex
+              items-center
+              justify-center
+              w-9
+              h-9
               rounded-full
-              p-2
+              bg-white/15
+              hover:bg-white/30
+              border
+              border-white/20
+              text-white
               transition
               disabled:opacity-30
-              disabled:cursor-not-allowed
             "
           >
-            <ChevronRight size={20} />
+            <ChevronRight size={18} />
           </button>
-
         </div>
       )}
 
