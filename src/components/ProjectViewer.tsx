@@ -81,7 +81,7 @@ const ProjectViewer = ({
   };
 
   return (
-        <div className="fixed inset-0 z-[9999] bg-black overflow-hidden">
+    <div className="fixed inset-0 z-[9999] bg-black overflow-hidden">
 
       {/* Close Button */}
       <button
@@ -90,7 +90,7 @@ const ProjectViewer = ({
         className="
           fixed
           top-2
-          right-4
+          right-6
           z-[10000]
           bg-red-600
           hover:bg-red-700
@@ -104,18 +104,17 @@ const ProjectViewer = ({
         <X size={18} />
       </button>
 
-      {/* ================= Desktop View ================= */}
+      {/* Image Area */}
       <div
         className="
-          hidden
-          md:flex
           absolute
           inset-0
+          flex
           items-center
           justify-center
           px-3
-          pt-12
-          pb-12
+          pt-14
+          pb-14
         "
       >
         {images.length > 0 ? (
@@ -125,7 +124,7 @@ const ProjectViewer = ({
             draggable={false}
             className="
               max-w-[97vw]
-              max-h-[90vh]
+              max-h-[88vh]
               object-contain
               select-none
             "
@@ -137,14 +136,16 @@ const ProjectViewer = ({
         )}
       </div>
 
-      {/* Desktop Navigation */}
+      {/* ================= Desktop Navigation ================= */}
       {images.length > 1 && (
         <>
+          {/* Previous */}
           <button
             onClick={prevImage}
             disabled={imgIndex === 0}
             className="
-              hidden md:flex
+              hidden
+              md:flex
               fixed
               left-6
               top-1/2
@@ -162,16 +163,19 @@ const ProjectViewer = ({
               text-white
               transition
               disabled:opacity-30
+              disabled:cursor-not-allowed
             "
           >
             <ChevronLeft size={24} />
           </button>
 
+          {/* Next */}
           <button
             onClick={nextImage}
             disabled={imgIndex === images.length - 1}
             className="
-              hidden md:flex
+              hidden
+              md:flex
               fixed
               right-6
               top-1/2
@@ -189,11 +193,13 @@ const ProjectViewer = ({
               text-white
               transition
               disabled:opacity-30
+              disabled:cursor-not-allowed
             "
           >
             <ChevronRight size={24} />
           </button>
 
+          {/* Desktop Page Counter */}
           <div
             className="
               hidden
@@ -202,9 +208,11 @@ const ProjectViewer = ({
               bottom-3
               left-1/2
               -translate-x-1/2
+              z-[10000]
               text-white
               text-sm
               font-medium
+              select-none
             "
           >
             {imgIndex + 1} / {images.length}
@@ -212,7 +220,7 @@ const ProjectViewer = ({
         </>
       )}
 
-      {/* ================= Mobile View ================= */}
+      {/* Image + Mobile Controls */}
       <div
         className="
           md:hidden
@@ -223,27 +231,24 @@ const ProjectViewer = ({
           items-center
           justify-center
           px-3
-          pt-12
-          pb-8
+          pt-14
+          pb-6
         "
       >
         {images.length > 0 ? (
-          <img
-            src={images[imgIndex]}
-            alt={`Project ${imgIndex + 1}`}
-            draggable={false}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-            className={`
-              max-w-[97vw]
-              max-h-[78vh]
-              object-contain
-              select-none
-              transition-transform
-              duration-700
-              ${animateHint ? "animate-swipeHint" : ""}
-            `}
-          />
+        <img
+          src={images[imgIndex]}
+          alt={`Project ${imgIndex + 1}`}
+          draggable={false}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          className="
+            max-w-[97vw]
+            max-h-[78vh]
+            object-contain
+            select-none
+          "
+        />
         ) : (
           <div className="text-white text-xl">
             No Images Available
@@ -251,13 +256,11 @@ const ProjectViewer = ({
         )}
 
         {images.length > 1 && (
-          <>
-            <div className="mt-4 text-white text-sm font-medium">
+          <div className="md:hidden mt-4">
+            <span className="text-white text-sm font-medium">
               {imgIndex + 1} / {images.length}
-            </div>
-
-            
-          </>
+            </span>
+          </div>
         )}
       </div>
     </div>
