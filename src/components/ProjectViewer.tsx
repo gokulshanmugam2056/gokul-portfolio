@@ -7,26 +7,25 @@ import {
 
 interface Props {
   images: string[];
+  initialIndex?: number; // Opens the same image clicked in project card
   onClose: () => void;
 }
 
 const ProjectViewer = ({
   images,
+  initialIndex = 0,
   onClose,
 }: Props) => {
-  const [imgIndex, setImgIndex] = useState(0);
+  const [imgIndex, setImgIndex] = useState(initialIndex);
 
-  // Mobile swipe
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
-  // Swipe hint animation
+  const [slideClass, setSlideClass] = useState("");
   const [showSwipeHint, setShowSwipeHint] = useState(true);
   const [animateHint, setAnimateHint] = useState(false);
-  const [slideClass, setSlideClass] = useState("");
 
   useEffect(() => {
-    // Desktop doesn't need swipe hint
     if (window.innerWidth >= 768) return;
 
     const start = setTimeout(() => {
@@ -44,7 +43,7 @@ const ProjectViewer = ({
     };
   }, []);
 
-    const nextImage = () => {
+  const nextImage = () => {
     if (imgIndex >= images.length - 1) return;
 
     setSlideClass("translate-x-8 opacity-0");
@@ -56,10 +55,10 @@ const ProjectViewer = ({
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          setSlideClass("translate-x-0 opacity-100");
+          setSlideClass("");
         });
       });
-    }, 150);
+    }, 140);
   };
 
   const prevImage = () => {
@@ -74,10 +73,10 @@ const ProjectViewer = ({
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          setSlideClass("translate-x-0 opacity-100");
+          setSlideClass("");
         });
       });
-    }, 150);
+    }, 140);
   };
 
   const handleTouchStart = (
@@ -94,19 +93,12 @@ const ProjectViewer = ({
     const distance =
       touchStartX.current - touchEndX.current;
 
-    // Swipe Left -> Next
-    if (distance > 50) {
-      nextImage();
-    }
-
-    // Swipe Right -> Previous
-    if (distance < -50) {
-      prevImage();
-    }
+    if (distance > 50) nextImage();
+    if (distance < -50) prevImage();
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-black overflow-hidden">
+        <div className="fixed inset-0 z-[9999] bg-black overflow-hidden">
 
       {/* Close Button */}
       <button
@@ -129,17 +121,18 @@ const ProjectViewer = ({
         <X size={18} />
       </button>
 
-      {/* Image Area */}
+      {/* Image Area (Single Image for Desktop & Mobile) */}
       <div
         className="
           absolute
           inset-0
           flex
+          flex-col
           items-center
           justify-center
           px-3
           pt-14
-          pb-14
+          pb-10
         "
       >
         {images.length > 0 ? (
@@ -147,14 +140,17 @@ const ProjectViewer = ({
             src={images[imgIndex]}
             alt={`Project ${imgIndex + 1}`}
             draggable={false}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
             className={`
               max-w-[97vw]
-              max-h-[88vh]
+              max-h-[82vh]
+              md:max-h-[88vh]
               object-contain
               select-none
               transition-all
               duration-300
-              ease-in-out
+              ease-out
               ${slideClass}
             `}
           />
@@ -163,18 +159,25 @@ const ProjectViewer = ({
             No Images Available
           </div>
         )}
+
+        {/* Mobile Page Counter */}
+        {images.length > 1 && (
+          <div className="md:hidden mt-4">
+            <span className="text-white text-sm font-medium">
+              {imgIndex + 1} / {images.length}
+            </span>
+          </div>
+        )}
       </div>
 
-      {/* ================= Desktop Navigation ================= */}
+      {/* Desktop Navigation */}
       {images.length > 1 && (
         <>
-          {/* Previous */}
           <button
             onClick={prevImage}
             disabled={imgIndex === 0}
             className="
-              hidden
-              md:flex
+              hidden md:flex
               fixed
               left-6
               top-1/2
@@ -198,13 +201,11 @@ const ProjectViewer = ({
             <ChevronLeft size={24} />
           </button>
 
-          {/* Next */}
           <button
             onClick={nextImage}
             disabled={imgIndex === images.length - 1}
             className="
-              hidden
-              md:flex
+              hidden md:flex
               fixed
               right-6
               top-1/2
@@ -228,74 +229,49 @@ const ProjectViewer = ({
             <ChevronRight size={24} />
           </button>
 
-          {/* Desktop Page Counter */}
           <div
             className="
-              hidden
-              md:block
+              hidden md:block
               fixed
               bottom-3
               left-1/2
               -translate-x-1/2
-              z-[10000]
               text-white
               text-sm
               font-medium
-              select-none
             "
           >
             {imgIndex + 1} / {images.length}
           </div>
         </>
       )}
-
-      {/* Image + Mobile Controls */}
-      <div
-        className="
-          md:hidden
-          absolute
-          inset-0
-          flex
-          flex-col
-          items-center
-          justify-center
-          px-3
-          pt-14
-          pb-6
-        "
-      >
-        {images.length > 0 ? (
-        <img
-          src={images[imgIndex]}
-          alt={`Project ${imgIndex + 1}`}
-          draggable={false}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
+            {/* Swipe Hint (Mobile Only) */}
+      {showSwipeHint && images.length > 1 && (
+        <div
           className={`
-            max-w-[97vw]
-            max-h-[78vh]
-            object-contain
-            select-none
+            md:hidden
+            fixed
+            bottom-12
+            left-1/2
+            -translate-x-1/2
+            z-[10001]
+            flex
+            items-center
+            gap-2
+            text-white/80
+            text-sm
+            pointer-events-none
             transition-all
-            duration-300
-            ease-in-out
-            ${slideClass}
+            duration-700
+            ${
+              animateHint
+                ? "translate-x-6 opacity-100"
+                : "translate-x-0 opacity-70"
+            }
           `}
-        /> 
-        ) : (
-          <div className="text-white text-xl">
-            No Images Available
-          </div>
-        )}
-
-        {images.length > 1 && (
-          <div className="md:hidden mt-4">
-            <span className="text-white text-sm font-medium">
-              {imgIndex + 1} / {images.length}
-            </span>
-          </div>
-        )}
-      </div>
+        >
+        </div>
+      )}
     </div>
   );
 };
