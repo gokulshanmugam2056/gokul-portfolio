@@ -218,7 +218,7 @@ export const Projects = () => {
                 <button
                   onClick={prevImg}
                   disabled={imgIndex === 0}
-                  className="absolute left-2 text-gray-400 text-3xl disabled:opacity-20"
+                  className="absolute left-2 text-black text-3xl disabled:opacity-20"
                 >
                   ‹
                 </button>
@@ -242,7 +242,7 @@ export const Projects = () => {
                   disabled={
                     imgIndex === selectedProject.images.length - 1
                   }
-                  className="absolute right-2 text-gray-400 text-3xl disabled:opacity-20"
+                  className="absolute right-2 text-black text-3xl disabled:opacity-20"
                 >
                   ›
                 </button>
