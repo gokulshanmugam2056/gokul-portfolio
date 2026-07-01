@@ -261,6 +261,7 @@ export const Projects = () => {
         <ProjectViewer
           images={selectedProject.images}
           initialIndex={imgIndex}
+          onImageChange={setImgIndex}
           onClose={() => setFullView(false)}
         />
       )}

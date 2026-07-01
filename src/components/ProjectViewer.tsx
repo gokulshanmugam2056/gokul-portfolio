@@ -9,12 +9,14 @@ interface Props {
   images: string[];
   initialIndex?: number;
   onClose: () => void;
+  onImageChange?: (index: number) => void;
 }
 
 const ProjectViewer = ({
   images,
   initialIndex = 0,
   onClose,
+  onImageChange,
 }: Props) => {
   const [imgIndex, setImgIndex] = useState(initialIndex);
   useEffect(() => {
@@ -59,7 +61,10 @@ const ProjectViewer = ({
     setSlideClass("translate-x-10 opacity-0");
 
     setTimeout(() => {
-      setImgIndex((prev) => prev + 1);
+      const newIndex = imgIndex + 1;
+
+      setImgIndex(newIndex);
+      onImageChange?.(newIndex);
 
       setSlideClass("-translate-x-10 opacity-0");
 
@@ -77,7 +82,10 @@ const ProjectViewer = ({
     setSlideClass("-translate-x-10 opacity-0");
 
     setTimeout(() => {
-      setImgIndex((prev) => prev - 1);
+      const newIndex = imgIndex - 1;
+
+      setImgIndex(newIndex);
+      onImageChange?.(newIndex);
 
       setSlideClass("translate-x-10 opacity-0");
 
@@ -88,7 +96,6 @@ const ProjectViewer = ({
       });
     }, 140);
   };
-
   const handleTouchStart = (
     e: React.TouchEvent<HTMLImageElement>
   ) => {
