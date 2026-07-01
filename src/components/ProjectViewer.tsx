@@ -168,75 +168,79 @@ const ProjectViewer = ({
         </>
       )}
 
-      {/* ================= Mobile Navigation ================= */}
-      {images.length > 1 && (
-        <div
-          className="
-            md:hidden
-            fixed
-            bottom-3
-            left-1/2
-            -translate-x-1/2
-            z-[10000]
-            flex
-            items-center
-            gap-4
-          "
-        >
-          {/* Previous */}
-          <button
-            onClick={prevImage}
-            disabled={imgIndex === 0}
-            className="
-              w-9
-              h-9
-              flex
-              items-center
-              justify-center
-              rounded-full
-              border
-              border-white/40
-              bg-white/10
-              hover:bg-white/20
-              text-white
-              transition
-              disabled:opacity-30
-              disabled:cursor-not-allowed
-            "
-          >
-            <ChevronLeft size={20} />
-          </button>
+      {/* Image + Mobile Controls */}
+<div
+  className="
+    absolute
+    inset-0
+    flex
+    flex-col
+    items-center
+    justify-center
+    px-3
+    pt-14
+    pb-6
+  "
+>
+  {images.length > 0 ? (
+    <img
+      src={images[imgIndex]}
+      alt={`Project ${imgIndex + 1}`}
+      draggable={false}
+      className="
+        max-w-[97vw]
+        max-h-[78vh]
+        object-contain
+        select-none
+      "
+    />
+  ) : (
+    <div className="text-white text-xl">
+      No Images Available
+    </div>
+  )}
 
-          {/* Counter */}
-          <span className="text-white text-sm font-medium min-w-[55px] text-center">
-            {imgIndex + 1} / {images.length}
-          </span>
+  {/* Mobile Controls */}
+  {images.length > 1 && (
+    <div className="md:hidden flex items-center gap-4 mt-4">
+      <button
+        onClick={prevImage}
+        disabled={imgIndex === 0}
+        className="
+          w-9 h-9
+          flex items-center justify-center
+          rounded-full
+          border border-white/40
+          bg-white/10
+          text-white
+          disabled:opacity-30
+        "
+      >
+        <ChevronLeft size={20} />
+      </button>
 
-          {/* Next */}
-          <button
-            onClick={nextImage}
-            disabled={imgIndex === images.length - 1}
-            className="
-              w-9
-              h-9
-              flex
-              items-center
-              justify-center
-              rounded-full
-              border
-              border-white/40
-              bg-white/10
-              hover:bg-white/20
-              text-white
-              transition
-              disabled:opacity-30
-              disabled:cursor-not-allowed
-            "
-          >
-            <ChevronRight size={20} />
-          </button>
-        </div>
-      )}
+      <span className="text-white text-sm font-medium">
+        {imgIndex + 1} / {images.length}
+      </span>
+
+      <button
+        onClick={nextImage}
+        disabled={imgIndex === images.length - 1}
+        className="
+          w-9 h-9
+          flex items-center justify-center
+          rounded-full
+          border border-white/40
+          bg-white/10
+          text-white
+          disabled:opacity-30
+        "
+      >
+        <ChevronRight size={20} />
+      </button>
+    </div>
+  )}
+</div>
     </div>
   );
 };
