@@ -23,6 +23,7 @@ const ProjectViewer = ({
   // Swipe hint animation
   const [showSwipeHint, setShowSwipeHint] = useState(true);
   const [animateHint, setAnimateHint] = useState(false);
+  const [slideClass, setSlideClass] = useState("");
 
   useEffect(() => {
     // Desktop doesn't need swipe hint
@@ -43,16 +44,40 @@ const ProjectViewer = ({
     };
   }, []);
 
-  const nextImage = () => {
-    if (imgIndex < images.length - 1) {
+    const nextImage = () => {
+    if (imgIndex >= images.length - 1) return;
+
+    setSlideClass("translate-x-8 opacity-0");
+
+    setTimeout(() => {
       setImgIndex((prev) => prev + 1);
-    }
+
+      setSlideClass("-translate-x-8 opacity-0");
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setSlideClass("translate-x-0 opacity-100");
+        });
+      });
+    }, 150);
   };
 
   const prevImage = () => {
-    if (imgIndex > 0) {
+    if (imgIndex <= 0) return;
+
+    setSlideClass("-translate-x-8 opacity-0");
+
+    setTimeout(() => {
       setImgIndex((prev) => prev - 1);
-    }
+
+      setSlideClass("translate-x-8 opacity-0");
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setSlideClass("translate-x-0 opacity-100");
+        });
+      });
+    }, 150);
   };
 
   const handleTouchStart = (
@@ -122,12 +147,16 @@ const ProjectViewer = ({
             src={images[imgIndex]}
             alt={`Project ${imgIndex + 1}`}
             draggable={false}
-            className="
+            className={`
               max-w-[97vw]
               max-h-[88vh]
               object-contain
               select-none
-            "
+              transition-all
+              duration-300
+              ease-in-out
+              ${slideClass}
+            `}
           />
         ) : (
           <div className="text-white text-xl">
@@ -242,13 +271,17 @@ const ProjectViewer = ({
           draggable={false}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          className="
+          className={`
             max-w-[97vw]
             max-h-[78vh]
             object-contain
             select-none
-          "
-        />
+            transition-all
+            duration-300
+            ease-in-out
+            ${slideClass}
+          `}
+        /> 
         ) : (
           <div className="text-white text-xl">
             No Images Available
