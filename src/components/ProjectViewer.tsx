@@ -7,7 +7,7 @@ import {
 
 interface Props {
   images: string[];
-  initialIndex?: number; // Opens the same image clicked in project card
+  initialIndex?: number;
   onClose: () => void;
 }
 
@@ -17,41 +17,51 @@ const ProjectViewer = ({
   onClose,
 }: Props) => {
   const [imgIndex, setImgIndex] = useState(initialIndex);
+  useEffect(() => {
+  setImgIndex(initialIndex);
+}, [initialIndex]);
 
+  // Swipe
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
+  // Animation
   const [slideClass, setSlideClass] = useState("");
-  const [showSwipeHint, setShowSwipeHint] = useState(true);
-  const [animateHint, setAnimateHint] = useState(false);
+  const [hintAnimation, setHintAnimation] = useState("");
 
-  useEffect(() => {
+  // First time mobile hint animation
+    useEffect(() => {
     if (window.innerWidth >= 768) return;
 
     const start = setTimeout(() => {
-      setAnimateHint(true);
-    }, 500);
+      // move image slightly left
+      setHintAnimation("-translate-x-10");
+    }, 700);
 
-    const stop = setTimeout(() => {
-      setAnimateHint(false);
-      setShowSwipeHint(false);
-    }, 2600);
+    const back = setTimeout(() => {
+      // return image to center
+      setHintAnimation("translate-x-0");
+    }, 1700);
+
+    const end = setTimeout(() => {
+      setHintAnimation("");
+    }, 2500);
 
     return () => {
       clearTimeout(start);
-      clearTimeout(stop);
+      clearTimeout(back);
+      clearTimeout(end);
     };
   }, []);
-
   const nextImage = () => {
     if (imgIndex >= images.length - 1) return;
 
-    setSlideClass("translate-x-8 opacity-0");
+    setSlideClass("translate-x-10 opacity-0");
 
     setTimeout(() => {
       setImgIndex((prev) => prev + 1);
 
-      setSlideClass("-translate-x-8 opacity-0");
+      setSlideClass("-translate-x-10 opacity-0");
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
@@ -64,12 +74,12 @@ const ProjectViewer = ({
   const prevImage = () => {
     if (imgIndex <= 0) return;
 
-    setSlideClass("-translate-x-8 opacity-0");
+    setSlideClass("-translate-x-10 opacity-0");
 
     setTimeout(() => {
       setImgIndex((prev) => prev - 1);
 
-      setSlideClass("translate-x-8 opacity-0");
+      setSlideClass("translate-x-10 opacity-0");
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
@@ -82,19 +92,27 @@ const ProjectViewer = ({
   const handleTouchStart = (
     e: React.TouchEvent<HTMLImageElement>
   ) => {
-    touchStartX.current = e.changedTouches[0].clientX;
+    touchStartX.current =
+      e.changedTouches[0].clientX;
   };
 
   const handleTouchEnd = (
     e: React.TouchEvent<HTMLImageElement>
   ) => {
-    touchEndX.current = e.changedTouches[0].clientX;
+    touchEndX.current =
+      e.changedTouches[0].clientX;
 
     const distance =
-      touchStartX.current - touchEndX.current;
+      touchStartX.current -
+      touchEndX.current;
 
-    if (distance > 50) nextImage();
-    if (distance < -50) prevImage();
+    if (distance > 50) {
+      nextImage();
+    }
+
+    if (distance < -50) {
+      prevImage();
+    }
   };
 
   return (
@@ -107,7 +125,7 @@ const ProjectViewer = ({
         className="
           fixed
           top-2
-          right-6
+          right-4
           z-[10000]
           bg-red-600
           hover:bg-red-700
@@ -121,9 +139,92 @@ const ProjectViewer = ({
         <X size={18} />
       </button>
 
-      {/* Image Area (Single Image for Desktop & Mobile) */}
+      {/* Desktop View */}
+      <div className="hidden md:flex absolute inset-0 items-center justify-center px-4 py-6">
+
+        <button
+          onClick={prevImage}
+          disabled={imgIndex === 0}
+          className="
+            absolute
+            left-6
+            w-10
+            h-10
+            flex
+            items-center
+            justify-center
+            rounded-full
+            border
+            border-white/40
+            bg-white/10
+            hover:bg-white/20
+            text-white
+            transition
+            disabled:opacity-30
+          "
+        >
+          <ChevronLeft size={24} />
+        </button>
+
+        <img
+          src={images[imgIndex]}
+          alt={`Project ${imgIndex + 1}`}
+          draggable={false}
+          className={`
+            max-w-[94vw]
+            max-h-[92vh]
+            object-contain
+            select-none
+            transition-all
+            duration-300
+            ease-in-out
+            ${slideClass}
+          `}
+        />
+
+        <button
+          onClick={nextImage}
+          disabled={imgIndex === images.length - 1}
+          className="
+            absolute
+            right-6
+            w-10
+            h-10
+            flex
+            items-center
+            justify-center
+            rounded-full
+            border
+            border-white/40
+            bg-white/10
+            hover:bg-white/20
+            text-white
+            transition
+            disabled:opacity-30
+          "
+        >
+          <ChevronRight size={24} />
+        </button>
+
+        <div
+          className="
+            absolute
+            bottom-3
+            left-1/2
+            -translate-x-1/2
+            text-white
+            text-sm
+            font-medium
+          "
+        >
+          {imgIndex + 1} / {images.length}
+        </div>
+      </div>
+
+      {/* Mobile View */}
       <div
         className="
+          md:hidden
           absolute
           inset-0
           flex
@@ -132,10 +233,12 @@ const ProjectViewer = ({
           justify-center
           px-3
           pt-14
-          pb-10
+          pb-5
         "
       >
-        {images.length > 0 ? (
+
+        <div className="relative flex justify-center items-center">
+
           <img
             src={images[imgIndex]}
             alt={`Project ${imgIndex + 1}`}
@@ -144,136 +247,39 @@ const ProjectViewer = ({
             onTouchEnd={handleTouchEnd}
             className={`
               max-w-[97vw]
-              max-h-[82vh]
-              md:max-h-[88vh]
+              max-h-[78vh]
               object-contain
               select-none
               transition-all
-              duration-300
-              ease-out
+              duration-[1200ms]
+              ease-in-out
               ${slideClass}
+              ${hintAnimation}
             `}
           />
-        ) : (
-          <div className="text-white text-xl">
-            No Images Available
-          </div>
-        )}
 
-        {/* Mobile Page Counter */}
+          {images.length > 1 && (
+            <div
+            className="
+              absolute
+              bottom-5
+              left-1/2
+              -translate-x-1/2
+              pointer-events-none
+            "
+          ></div>
+          )}
+        </div>
+
         {images.length > 1 && (
-          <div className="md:hidden mt-4">
-            <span className="text-white text-sm font-medium">
-              {imgIndex + 1} / {images.length}
-            </span>
+          <div className="mt-4 text-white text-sm font-medium">
+            {imgIndex + 1} / {images.length}
           </div>
         )}
       </div>
 
-      {/* Desktop Navigation */}
-      {images.length > 1 && (
-        <>
-          <button
-            onClick={prevImage}
-            disabled={imgIndex === 0}
-            className="
-              hidden md:flex
-              fixed
-              left-6
-              top-1/2
-              -translate-y-1/2
-              z-[10000]
-              w-10
-              h-10
-              items-center
-              justify-center
-              rounded-full
-              border
-              border-white/40
-              bg-white/10
-              hover:bg-white/20
-              text-white
-              transition
-              disabled:opacity-30
-              disabled:cursor-not-allowed
-            "
-          >
-            <ChevronLeft size={24} />
-          </button>
-
-          <button
-            onClick={nextImage}
-            disabled={imgIndex === images.length - 1}
-            className="
-              hidden md:flex
-              fixed
-              right-6
-              top-1/2
-              -translate-y-1/2
-              z-[10000]
-              w-10
-              h-10
-              items-center
-              justify-center
-              rounded-full
-              border
-              border-white/40
-              bg-white/10
-              hover:bg-white/20
-              text-white
-              transition
-              disabled:opacity-30
-              disabled:cursor-not-allowed
-            "
-          >
-            <ChevronRight size={24} />
-          </button>
-
-          <div
-            className="
-              hidden md:block
-              fixed
-              bottom-3
-              left-1/2
-              -translate-x-1/2
-              text-white
-              text-sm
-              font-medium
-            "
-          >
-            {imgIndex + 1} / {images.length}
-          </div>
-        </>
-      )}
-            {/* Swipe Hint (Mobile Only) */}
-      {showSwipeHint && images.length > 1 && (
-        <div
-          className={`
-            md:hidden
-            fixed
-            bottom-12
-            left-1/2
-            -translate-x-1/2
-            z-[10001]
-            flex
-            items-center
-            gap-2
-            text-white/80
-            text-sm
-            pointer-events-none
-            transition-all
-            duration-700
-            ${
-              animateHint
-                ? "translate-x-6 opacity-100"
-                : "translate-x-0 opacity-70"
-            }
-          `}
-        >
-        </div>
-      )}
     </div>
-  );
+      );
 };
 
 export default ProjectViewer;

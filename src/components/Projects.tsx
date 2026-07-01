@@ -260,6 +260,7 @@ export const Projects = () => {
       {fullView && selectedProject && (
         <ProjectViewer
           images={selectedProject.images}
+          initialIndex={imgIndex}
           onClose={() => setFullView(false)}
         />
       )}
