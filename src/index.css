@@ -304,3 +304,37 @@
   }
 
 }
+
+/* ===============================
+   Mobile Swipe Hint Animation
+================================= */
+
+@keyframes swipeHint {
+  0% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-18px);
+  }
+
+  40% {
+    transform: translateX(0);
+  }
+
+  60% {
+    transform: translateX(18px);
+  }
+
+  80% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-swipeHint {
+  animation: swipeHint 1.6s ease-in-out;
+}
