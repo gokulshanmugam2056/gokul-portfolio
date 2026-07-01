@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -15,6 +15,29 @@ const ProjectViewer = ({
   onClose,
 }: Props) => {
   const [imgIndex, setImgIndex] = useState(0);
+
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    touchEndX.current = e.changedTouches[0].clientX;
+
+    const distance = touchStartX.current - touchEndX.current;
+
+    // Swipe Left -> Next Image
+    if (distance > 50 && imgIndex < images.length - 1) {
+      nextImage();
+    }
+
+    // Swipe Right -> Previous Image
+    if (distance < -50 && imgIndex > 0) {
+      prevImage();
+    }
+  };
 
   const nextImage = () => {
     if (imgIndex < images.length - 1) {
@@ -184,17 +207,19 @@ const ProjectViewer = ({
         "
       >
         {images.length > 0 ? (
-          <img
-            src={images[imgIndex]}
-            alt={`Project ${imgIndex + 1}`}
-            draggable={false}
-            className="
-              max-w-[97vw]
-              max-h-[78vh]
-              object-contain
-              select-none
-            "
-          />
+        <img
+          src={images[imgIndex]}
+          alt={`Project ${imgIndex + 1}`}
+          draggable={false}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          className="
+            max-w-[97vw]
+            max-h-[78vh]
+            object-contain
+            select-none
+          "
+        />
         ) : (
           <div className="text-white text-xl">
             No Images Available
@@ -202,42 +227,10 @@ const ProjectViewer = ({
         )}
 
         {images.length > 1 && (
-          <div className="flex items-center gap-4 mt-4">
-            <button
-              onClick={prevImage}
-              disabled={imgIndex === 0}
-              className="
-                w-9 h-9
-                flex items-center justify-center
-                rounded-full
-                border border-white/40
-                bg-white/10
-                text-white
-                disabled:opacity-30
-              "
-            >
-              <ChevronLeft size={20} />
-            </button>
-
+          <div className="md:hidden mt-4">
             <span className="text-white text-sm font-medium">
               {imgIndex + 1} / {images.length}
             </span>
-
-            <button
-              onClick={nextImage}
-              disabled={imgIndex === images.length - 1}
-              className="
-                w-9 h-9
-                flex items-center justify-center
-                rounded-full
-                border border-white/40
-                bg-white/10
-                text-white
-                disabled:opacity-30
-              "
-            >
-              <ChevronRight size={20} />
-            </button>
           </div>
         )}
       </div>
