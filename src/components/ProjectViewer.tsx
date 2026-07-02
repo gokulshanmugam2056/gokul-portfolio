@@ -1,9 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import {
-  ChevronLeft,
-  ChevronRight,
-  X,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 interface Props {
   images: string[];
@@ -19,99 +15,120 @@ const ProjectViewer = ({
   onImageChange,
 }: Props) => {
   const [imgIndex, setImgIndex] = useState(initialIndex);
-  useEffect(() => {
-  setImgIndex(initialIndex);
-}, [initialIndex]);
 
-  // Swipe
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
-  // Animation
   const [slideClass, setSlideClass] = useState("");
   const [hintAnimation, setHintAnimation] = useState("");
+  const isChanging = useRef(false);
 
-  // First time mobile hint animation
-    useEffect(() => {
-    if (window.innerWidth >= 768) return;
+  useEffect(() => {
+    setImgIndex(initialIndex);
+  }, [initialIndex]);
 
-    const start = setTimeout(() => {
-      // move image slightly left
+  // Lock background Projects page scroll while ProjectViewer is open
+  useEffect(() => {
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+    };
+  }, []);
+
+  // First-time mobile swipe hint: move only the image slightly
+  useEffect(() => {
+    if (window.innerWidth >= 768 || images.length <= 1) return;
+
+    const start = window.setTimeout(() => {
       setHintAnimation("-translate-x-10");
     }, 700);
 
-    const back = setTimeout(() => {
-      // return image to center
+    const back = window.setTimeout(() => {
       setHintAnimation("translate-x-0");
     }, 1700);
 
-    const end = setTimeout(() => {
+    const end = window.setTimeout(() => {
       setHintAnimation("");
     }, 2500);
 
     return () => {
-      clearTimeout(start);
-      clearTimeout(back);
-      clearTimeout(end);
+      window.clearTimeout(start);
+      window.clearTimeout(back);
+      window.clearTimeout(end);
     };
-  }, []);
-  const nextImage = () => {
-    if (imgIndex >= images.length - 1) return;
+  }, [images.length]);
 
-    setSlideClass("translate-x-10 opacity-0");
+  const changeImage = (newIndex: number, direction: "next" | "prev") => {
+    if (
+      newIndex < 0 ||
+      newIndex >= images.length ||
+      isChanging.current
+    ) {
+      return;
+    }
 
-    setTimeout(() => {
-      const newIndex = imgIndex + 1;
+    isChanging.current = true;
 
+    // Desktop: change image directly without slide effect
+    if (window.innerWidth >= 768) {
+      setImgIndex(newIndex);
+      onImageChange?.(newIndex);
+      isChanging.current = false;
+      return;
+    }
+
+    // Mobile: smooth slide effect
+    setSlideClass(
+      direction === "next"
+        ? "translate-x-10 opacity-0"
+        : "-translate-x-10 opacity-0"
+    );
+
+    window.setTimeout(() => {
       setImgIndex(newIndex);
       onImageChange?.(newIndex);
 
-      setSlideClass("-translate-x-10 opacity-0");
+      setSlideClass(
+        direction === "next"
+          ? "-translate-x-10 opacity-0"
+          : "translate-x-10 opacity-0"
+      );
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           setSlideClass("");
+          isChanging.current = false;
         });
       });
     }, 140);
+  };
+
+  const nextImage = () => {
+    changeImage(imgIndex + 1, "next");
   };
 
   const prevImage = () => {
-    if (imgIndex <= 0) return;
-
-    setSlideClass("-translate-x-10 opacity-0");
-
-    setTimeout(() => {
-      const newIndex = imgIndex - 1;
-
-      setImgIndex(newIndex);
-      onImageChange?.(newIndex);
-
-      setSlideClass("translate-x-10 opacity-0");
-
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setSlideClass("");
-        });
-      });
-    }, 140);
+    changeImage(imgIndex - 1, "prev");
   };
+
   const handleTouchStart = (
     e: React.TouchEvent<HTMLImageElement>
   ) => {
-    touchStartX.current =
-      e.changedTouches[0].clientX;
+    touchStartX.current = e.changedTouches[0].clientX;
   };
 
   const handleTouchEnd = (
     e: React.TouchEvent<HTMLImageElement>
   ) => {
-    touchEndX.current =
-      e.changedTouches[0].clientX;
+    touchEndX.current = e.changedTouches[0].clientX;
 
-    const distance =
-      touchStartX.current -
-      touchEndX.current;
+    const distance = touchStartX.current - touchEndX.current;
 
     if (distance > 50) {
       nextImage();
@@ -122,126 +139,73 @@ const ProjectViewer = ({
     }
   };
 
-  return (
-        <div className="fixed inset-0 z-[9999] bg-black overflow-hidden">
+  if (images.length === 0) {
+    return (
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black">
+        <button
+          onClick={onClose}
+          title="Close"
+          className="fixed top-2 right-4 z-[10000] rounded-full bg-red-600 p-2 text-white shadow-xl transition hover:bg-red-700"
+        >
+          <X size={18} />
+        </button>
 
+        <p className="text-xl text-white">No Images Available</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="fixed inset-0 z-[9999] overflow-hidden overscroll-none bg-black">
       {/* Close Button */}
       <button
         onClick={onClose}
         title="Close"
-        className="
-          fixed
-          top-2
-          right-4
-          z-[10000]
-          bg-red-600
-          hover:bg-red-700
-          text-white
-          rounded-full
-          p-2
-          shadow-xl
-          transition
-        "
+        className="fixed top-2 right-4 z-[10000] rounded-full bg-red-600 p-2 text-white shadow-xl transition hover:bg-red-700"
       >
         <X size={18} />
       </button>
 
       {/* Desktop View */}
-      <div className="hidden md:flex absolute inset-0 items-center justify-center px-4 py-6">
+      <div className="absolute inset-0 hidden items-center justify-center px-4 py-6 md:flex">
+        {images.length > 1 && (
+          <button
+            onClick={prevImage}
+            disabled={imgIndex === 0}
+            className="absolute left-6 flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-white/10 text-white transition hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-30"
+          >
+            <ChevronLeft size={24} />
+          </button>
+        )}
 
-        <button
-          onClick={prevImage}
-          disabled={imgIndex === 0}
-          className="
-            absolute
-            left-6
-            w-10
-            h-10
-            flex
-            items-center
-            justify-center
-            rounded-full
-            border
-            border-white/40
-            bg-white/10
-            hover:bg-white/20
-            text-white
-            transition
-            disabled:opacity-30
-          "
-        >
-          <ChevronLeft size={24} />
-        </button>
-
+        {/* Desktop image: no animation */}
         <img
           src={images[imgIndex]}
           alt={`Project ${imgIndex + 1}`}
           draggable={false}
-          className="
-            max-w-[90vw]
-            max-h-[88vh]
-            object-contain
-            select-none
-          "
+          className="max-h-[90vh] max-w-[88vw] select-none object-contain"
         />
 
-        <button
-          onClick={nextImage}
-          disabled={imgIndex === images.length - 1}
-          className="
-            absolute
-            right-6
-            w-10
-            h-10
-            flex
-            items-center
-            justify-center
-            rounded-full
-            border
-            border-white/40
-            bg-white/10
-            hover:bg-white/20
-            text-white
-            transition
-            disabled:opacity-30
-          "
-        >
-          <ChevronRight size={24} />
-        </button>
+        {images.length > 1 && (
+          <button
+            onClick={nextImage}
+            disabled={imgIndex === images.length - 1}
+            className="absolute right-6 flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-white/10 text-white transition hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-30"
+          >
+            <ChevronRight size={24} />
+          </button>
+        )}
 
-        <div
-          className="
-            absolute
-            bottom-3
-            left-1/2
-            -translate-x-1/2
-            text-white
-            text-sm
-            font-medium
-          "
-        >
-          {imgIndex + 1} / {images.length}
-        </div>
+        {images.length > 1 && (
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-sm font-medium text-white">
+            {imgIndex + 1} / {images.length}
+          </div>
+        )}
       </div>
 
       {/* Mobile View */}
-      <div
-        className="
-          md:hidden
-          absolute
-          inset-0
-          flex
-          flex-col
-          items-center
-          justify-center
-          px-3
-          pt-14
-          pb-5
-        "
-      >
-
-        <div className="relative flex justify-center items-center">
-
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-3 pt-14 pb-5 md:hidden">
+        <div className="flex items-center justify-center overflow-hidden">
           <img
             src={images[imgIndex]}
             alt={`Project ${imgIndex + 1}`}
@@ -249,40 +213,27 @@ const ProjectViewer = ({
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             className={`
-              max-w-[97vw]
               max-h-[78vh]
-              object-contain
+              max-w-[97vw]
               select-none
+              object-contain
               transition-all
-              duration-[1200ms]
+              duration-300
               ease-in-out
               ${slideClass}
               ${hintAnimation}
             `}
           />
-
-          {images.length > 1 && (
-            <div
-            className="
-              absolute
-              bottom-5
-              left-1/2
-              -translate-x-1/2
-              pointer-events-none
-            "
-          ></div>
-          )}
         </div>
 
         {images.length > 1 && (
-          <div className="mt-4 text-white text-sm font-medium">
+          <div className="mt-4 text-sm font-medium text-white">
             {imgIndex + 1} / {images.length}
           </div>
         )}
       </div>
-
     </div>
-      );
+  );
 };
 
 export default ProjectViewer;
