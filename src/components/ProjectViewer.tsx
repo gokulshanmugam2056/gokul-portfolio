@@ -198,11 +198,20 @@ const ProjectViewer = ({
 
         {/* Desktop image: no animation */}
         <img
-          src={images[imgIndex]}
-          alt={`Project ${imgIndex + 1}`}
-          draggable={false}
-          className="max-h-[90vh] max-w-[88vw] select-none object-contain"
+        src={images[imgIndex]}
+        alt={`Project ${imgIndex + 1}`}
+        draggable={false}
+        className={`     max-h-[90vh]
+            max-w-[88vw]
+            select-none
+            object-contain
+            transition-opacity
+            duration-200
+            ease-in-out
+            ${slideClass}
+          `}
         />
+
 
         {images.length > 1 && (
           <button
@@ -225,23 +234,22 @@ const ProjectViewer = ({
       <div className="absolute inset-0 flex flex-col items-center justify-center px-3 pt-14 pb-5 md:hidden">
         <div className="flex items-center justify-center overflow-hidden">
           <img
-            src={images[imgIndex]}
-            alt={`Project ${imgIndex + 1}`}
-            draggable={false}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-            className={`
-              max-h-[78vh]
-              max-w-[97vw]
-              select-none
-              object-contain
-              transition-all
-              duration-300
-              ease-in-out
-              ${slideClass}
-              ${hintAnimation}
-            `}
-          />
+src={images[imgIndex]}
+alt={`Project ${imgIndex + 1}`}
+draggable={false}
+onTouchStart={handleTouchStart}
+onTouchEnd={handleTouchEnd}
+className={`     max-h-[78vh]
+    max-w-[97vw]
+    select-none
+    object-contain
+    transition-transform
+    duration-[1200ms]
+    ease-in-out
+    ${hintAnimation}
+  `}
+/>
+
         </div>
 
         {images.length > 1 && (
