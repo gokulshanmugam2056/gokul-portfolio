@@ -177,16 +177,12 @@ const ProjectViewer = ({
           src={images[imgIndex]}
           alt={`Project ${imgIndex + 1}`}
           draggable={false}
-          className={`
-            max-w-[94vw]
-            max-h-[92vh]
+          className="
+            max-w-[90vw]
+            max-h-[88vh]
             object-contain
             select-none
-            transition-all
-            duration-300
-            ease-in-out
-            ${slideClass}
-          `}
+          "
         />
 
         <button
