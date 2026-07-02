@@ -213,30 +213,23 @@ export const Projects = () => {
               )}
             </div>
 
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center justify-center gap-2">
   {selectedProject.images.length > 1 && (
     <button
       onClick={prevImg}
       disabled={imgIndex === 0}
-      aria-label="Previous image"
-      className="
-        flex h-10 w-10 shrink-0 items-center justify-center
-        rounded-full border border-gray-300
-        bg-white text-3xl text-black shadow-sm
-        transition hover:bg-gray-100
-        disabled:cursor-not-allowed disabled:opacity-20
-      "
+      className="shrink-0 text-black text-3xl disabled:opacity-20"
     >
       ‹
     </button>
   )}
 
-  <div className="flex h-[240px] w-[550px] max-w-[65vw] items-center justify-center overflow-hidden rounded-xl border bg-white p-3">
+  <div className="w-[650px] h-[330px] max-w-[72vw] flex items-center justify-center overflow-hidden border rounded-xl p-3 bg-white">
     {selectedProject.images.length > 0 ? (
       <img
         src={selectedProject.images[imgIndex]}
         alt={selectedProject.title}
-        className="max-h-full max-w-full object-contain"
+        className="object-contain max-h-full max-w-full"
       />
     ) : (
       <div>No images</div>
@@ -247,14 +240,7 @@ export const Projects = () => {
     <button
       onClick={nextImg}
       disabled={imgIndex === selectedProject.images.length - 1}
-      aria-label="Next image"
-      className="
-        flex h-10 w-10 shrink-0 items-center justify-center
-        rounded-full border border-gray-300
-        bg-white text-3xl text-black shadow-sm
-        transition hover:bg-gray-100
-        disabled:cursor-not-allowed disabled:opacity-20
-      "
+      className="shrink-0 text-black text-3xl disabled:opacity-20"
     >
       ›
     </button>
