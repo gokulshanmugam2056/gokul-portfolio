@@ -66,48 +66,66 @@ const ProjectViewer = ({
 
   const changeImage = (newIndex: number, direction: "next" | "prev") => {
     if (
-      newIndex < 0 ||
-      newIndex >= images.length ||
-      isChanging.current
+    newIndex < 0 ||
+    newIndex >= images.length ||
+    isChanging.current
     ) {
-      return;
+    return;
     }
 
     isChanging.current = true;
 
-    // Desktop: change image directly without slide effect
+    // Desktop: simple black fade while changing image
     if (window.innerWidth >= 768) {
-      setImgIndex(newIndex);
-      onImageChange?.(newIndex);
-      isChanging.current = false;
-      return;
-    }
+    setSlideClass("opacity-0");
 
-    // Mobile: smooth slide effect
-    setSlideClass(
-      direction === "next"
-        ? "translate-x-10 opacity-0"
-        : "-translate-x-10 opacity-0"
-    );
 
     window.setTimeout(() => {
       setImgIndex(newIndex);
       onImageChange?.(newIndex);
 
-      setSlideClass(
-        direction === "next"
-          ? "-translate-x-10 opacity-0"
-          : "translate-x-10 opacity-0"
-      );
-
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          setSlideClass("");
+          setSlideClass("opacity-100");
           isChanging.current = false;
         });
       });
+    }, 180);
+
+    return;
+
+
+    }
+
+    // Mobile: smooth swipe slide effect
+    setSlideClass(
+    direction === "next"
+    ? "translate-x-10 opacity-0"
+    : "-translate-x-10 opacity-0"
+    );
+
+    window.setTimeout(() => {
+    setImgIndex(newIndex);
+    onImageChange?.(newIndex);
+
+
+    setSlideClass(
+      direction === "next"
+        ? "-translate-x-10 opacity-0"
+        : "translate-x-10 opacity-0"
+    );
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setSlideClass("");
+        isChanging.current = false;
+      });
+    });
+
+
     }, 140);
   };
+
 
   const nextImage = () => {
     changeImage(imgIndex + 1, "next");
@@ -178,7 +196,13 @@ const ProjectViewer = ({
           </button>
         )}
 
-        
+        {/* Desktop image: no animation */}
+        <img
+          src={images[imgIndex]}
+          alt={`Project ${imgIndex + 1}`}
+          draggable={false}
+          className="max-h-[90vh] max-w-[88vw] select-none object-contain"
+        />
 
         {images.length > 1 && (
           <button
