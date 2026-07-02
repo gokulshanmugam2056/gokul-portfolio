@@ -213,41 +213,53 @@ export const Projects = () => {
               )}
             </div>
 
-            <div className="relative flex items-center justify-center border rounded-xl p-3 bg-white">
-              {selectedProject.images.length > 1 && (
-                <button
-                  onClick={prevImg}
-                  disabled={imgIndex === 0}
-                  className="absolute left-2 text-black text-3xl disabled:opacity-20"
-                >
-                  ‹
-                </button>
-              )}
+            <div className="flex items-center justify-center gap-3">
+  {selectedProject.images.length > 1 && (
+    <button
+      onClick={prevImg}
+      disabled={imgIndex === 0}
+      aria-label="Previous image"
+      className="
+        flex h-10 w-10 shrink-0 items-center justify-center
+        rounded-full border border-gray-300
+        bg-white text-3xl text-black shadow-sm
+        transition hover:bg-gray-100
+        disabled:cursor-not-allowed disabled:opacity-20
+      "
+    >
+      ‹
+    </button>
+  )}
 
-              <div className="w-[550px] h-[240px] flex items-center justify-center overflow-hidden">
-                {selectedProject.images.length > 0 ? (
-                  <img
-                    src={selectedProject.images[imgIndex]}
-                    alt={selectedProject.title}
-                    className="object-contain max-h-full max-w-full"
-                  />
-                ) : (
-                  <div>No images</div>
-                )}
-              </div>
+  <div className="flex h-[240px] w-[550px] max-w-[65vw] items-center justify-center overflow-hidden rounded-xl border bg-white p-3">
+    {selectedProject.images.length > 0 ? (
+      <img
+        src={selectedProject.images[imgIndex]}
+        alt={selectedProject.title}
+        className="max-h-full max-w-full object-contain"
+      />
+    ) : (
+      <div>No images</div>
+    )}
+  </div>
 
-              {selectedProject.images.length > 1 && (
-                <button
-                  onClick={nextImg}
-                  disabled={
-                    imgIndex === selectedProject.images.length - 1
-                  }
-                  className="absolute right-2 text-black text-3xl disabled:opacity-20"
-                >
-                  ›
-                </button>
-              )}
-            </div>
+  {selectedProject.images.length > 1 && (
+    <button
+      onClick={nextImg}
+      disabled={imgIndex === selectedProject.images.length - 1}
+      aria-label="Next image"
+      className="
+        flex h-10 w-10 shrink-0 items-center justify-center
+        rounded-full border border-gray-300
+        bg-white text-3xl text-black shadow-sm
+        transition hover:bg-gray-100
+        disabled:cursor-not-allowed disabled:opacity-20
+      "
+    >
+      ›
+    </button>
+  )}
+</div>
 
             <div className="text-center mt-3 text-sm text-gray-500">
               {selectedProject.images.length === 0
