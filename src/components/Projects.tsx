@@ -214,38 +214,38 @@ export const Projects = () => {
             </div>
 
             <div className="flex items-center justify-center gap-2">
-  {selectedProject.images.length > 1 && (
-    <button
-      onClick={prevImg}
-      disabled={imgIndex === 0}
-      className="shrink-0 text-black text-3xl disabled:opacity-20"
-    >
-      ‹
-    </button>
-  )}
+              {selectedProject.images.length > 1 && (
+                <button
+                  onClick={prevImg}
+                  disabled={imgIndex === 0}
+                  className="shrink-0 text-black text-3xl disabled:opacity-20"
+                >
+                  ‹
+                </button>
+              )}
 
-  <div className="w-[650px] h-[330px] max-w-[72vw] flex items-center justify-center overflow-hidden border rounded-xl p-3 bg-white">
-    {selectedProject.images.length > 0 ? (
-      <img
-        src={selectedProject.images[imgIndex]}
-        alt={selectedProject.title}
-        className="object-contain max-h-full max-w-full"
-      />
-    ) : (
-      <div>No images</div>
-    )}
-  </div>
+              <div className="w-[650px] h-[330px] max-w-[72vw] flex items-center justify-center overflow-hidden border rounded-xl p-3 bg-white">
+                {selectedProject.images.length > 0 ? (
+                  <img
+                    src={selectedProject.images[imgIndex]}
+                    alt={selectedProject.title}
+                    className="object-contain max-h-full max-w-full"
+                  />
+                ) : (
+                  <div>No images</div>
+                )}
+              </div>
 
-  {selectedProject.images.length > 1 && (
-    <button
-      onClick={nextImg}
-      disabled={imgIndex === selectedProject.images.length - 1}
-      className="shrink-0 text-black text-3xl disabled:opacity-20"
-    >
-      ›
-    </button>
-  )}
-</div>
+              {selectedProject.images.length > 1 && (
+                <button
+                  onClick={nextImg}
+                  disabled={imgIndex === selectedProject.images.length - 1}
+                  className="shrink-0 text-black text-3xl disabled:opacity-20"
+                >
+                  ›
+                </button>
+              )}
+            </div>
 
             <div className="text-center mt-3 text-sm text-gray-500">
               {selectedProject.images.length === 0
