@@ -178,13 +178,7 @@ const ProjectViewer = ({
           </button>
         )}
 
-        {/* Desktop image: no animation */}
-        <img
-          src={images[imgIndex]}
-          alt={`Project ${imgIndex + 1}`}
-          draggable={false}
-          className="max-h-[90vh] max-w-[88vw] select-none object-contain"
-        />
+        
 
         {images.length > 1 && (
           <button
