@@ -207,7 +207,7 @@ export const Projects = () => {
           >
             {/* Modal Header */}
             <div className="mb-4 flex items-center justify-between gap-3">
-              <h2 className="text-lg font-bold">
+              <h2 className="line-clamp-2 flex-1 text-lg font-bold leading-6">
                 {selectedProject.title}
               </h2>
 
