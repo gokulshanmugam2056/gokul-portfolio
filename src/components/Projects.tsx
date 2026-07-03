@@ -235,7 +235,7 @@ export const Projects = () => {
 
               <div
                 className="
-                  w-[650px]
+                  w-[850px]
                   h-[330px]
                   max-w-[72vw]
                   flex
@@ -247,7 +247,7 @@ export const Projects = () => {
                   p-3
                   bg-white
                   max-md:w-full
-                  max-md:max-w-[90vw]
+                  max-md:max-w-[80vw]
                   max-md:h-[180px]
                 "
               >
