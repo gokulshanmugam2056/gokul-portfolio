@@ -195,7 +195,7 @@ export const Projects = () => {
             className="
               bg-white
               rounded-xl
-              w-[92%]
+              w-[93%]
               max-w-3xl
               max-h-[90vh]
               overflow-y-auto
@@ -248,7 +248,7 @@ export const Projects = () => {
                   bg-white
                   max-md:w-full
                   max-md:max-w-[90vw]
-                  max-md:h-[190px]
+                  max-md:h-[180px]
                 "
               >
                 {selectedProject.images.length > 0 ? (
