@@ -192,7 +192,16 @@ export const Projects = () => {
           onClick={closeModal}
         >
           <div
-            className="bg-white rounded-xl w-[85%] max-w-3xl p-4 relative"
+            className="
+              bg-white
+              rounded-xl
+              w-[92%]
+              max-w-3xl
+              max-h-[90vh]
+              overflow-y-auto
+              p-4
+              relative
+            "
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-4">
@@ -224,12 +233,30 @@ export const Projects = () => {
                 </button>
               )}
 
-              <div className="w-[650px] h-[330px] max-w-[72vw] flex items-center justify-center overflow-hidden border rounded-xl p-3 bg-white">
+              <div
+  className="
+    w-[650px]
+    h-[330px]
+    max-w-[72vw]
+    flex
+    items-center
+    justify-center
+    overflow-hidden
+    border
+    rounded-xl
+    p-3
+    bg-white
+    max-md:w-full
+    max-md:max-w-[90vw]
+    max-md:h-[190px]
+  "
+>
                 {selectedProject.images.length > 0 ? (
                   <img
                     src={selectedProject.images[imgIndex]}
                     alt={selectedProject.title}
                     className="object-contain max-h-full max-w-full"
+                    
                   />
                 ) : (
                   <div>No images</div>
