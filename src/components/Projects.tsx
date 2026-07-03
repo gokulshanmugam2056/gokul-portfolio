@@ -186,102 +186,112 @@ export const Projects = () => {
       </div>
 
       {/* MINI MODAL */}
-      {selectedProject && !fullView && (
-        <div
-          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
-          onClick={closeModal}
-        >
-          <div
-            className="
-              bg-white
-              rounded-xl
-              w-[93%]
-              max-w-3xl
-              max-h-[90vh]
-              overflow-y-auto
-              p-4
-              relative
-            "
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-bold">
-                {selectedProject.title}
-              </h2>
+{selectedProject && !fullView && (
 
-              {selectedProject.images.length > 0 && (
-                <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setFullView(true);
-                }}
-                className="text-xs bg-black text-white px-3 py-1 rounded hover:bg-gray-800"
-              >
-                View Full
-              </button>
-              )}
-            </div>
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+    onClick={closeModal}
+  >
+    <div
+      className="
+        relative
+        max-h-[90vh]
+        w-[93%]
+        max-w-3xl
+        overflow-y-auto
+        rounded-xl
+        bg-white
+        p-4
+      "
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Modal Header */}
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <h2 className="text-lg font-bold">
+          {selectedProject.title}
+        </h2>
 
-            <div className="flex items-center justify-center gap-7">
-              {selectedProject.images.length > 1 && (
-                <button
-                  onClick={prevImg}
-                  disabled={imgIndex === 0}
-                  className="shrink-0 text-black text-3xl disabled:opacity-20"
-                >
-                  ‹
-                </button>
-              )}
+```
+    {selectedProject.images.length > 0 && (
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setFullView(true);
+        }}
+        className="shrink-0 rounded bg-black px-3 py-1 text-xs text-white hover:bg-gray-800"
+      >
+        View Full
+      </button>
+    )}
+  </div>
 
-              <div
-                className="
-                  w-[850px]
-                  h-[330px]
-                  max-w-[72vw]
-                  flex
-                  items-center
-                  justify-center
-                  overflow-hidden
-                  border
-                  rounded-xl
-                  p-3
-                  bg-white
-                  max-md:w-full
-                  max-md:max-w-[88vw]
-                  max-md:h-[180px]
-                "
-              >
-                {selectedProject.images.length > 0 ? (
-                  <img
-                    src={selectedProject.images[imgIndex]}
-                    alt={selectedProject.title}
-                    className="object-contain max-h-full max-w-full"
-                    
-                  />
-                ) : (
-                  <div>No images</div>
-                )}
-              </div>
+  {/* Image and Navigation */}
+  <div className="flex items-center justify-center gap-2 md:gap-7">
+    {selectedProject.images.length > 1 && (
+      <button
+        onClick={prevImg}
+        disabled={imgIndex === 0}
+        aria-label="Previous image"
+        className="shrink-0 text-3xl text-black disabled:opacity-20"
+      >
+        ‹
+      </button>
+    )}
 
-              {selectedProject.images.length > 1 && (
-                <button
-                  onClick={nextImg}
-                  disabled={imgIndex === selectedProject.images.length - 1}
-                  className="shrink-0 text-black text-3xl disabled:opacity-20"
-                >
-                  ›
-                </button>
-              )}
-            </div>
+    <div
+      className="
+        flex
+        h-[330px]
+        w-[850px]
+        max-w-[72vw]
+        items-center
+        justify-center
+        overflow-hidden
+        rounded-xl
+        border
+        bg-white
+        p-3
 
-            <div className="text-center mt-3 text-sm text-gray-500">
-              {selectedProject.images.length === 0
-                ? "0 / 0"
-                : `${imgIndex + 1} / ${selectedProject.images.length}`}
-            </div>
-          </div>
-        </div>
+        max-md:h-[180px]
+        max-md:w-[calc(100vw-70px)]
+        max-md:max-w-none
+      "
+    >
+      {selectedProject.images.length > 0 ? (
+        <img
+          src={selectedProject.images[imgIndex]}
+          alt={selectedProject.title}
+          className="max-h-full max-w-full object-contain"
+        />
+      ) : (
+        <div>No images</div>
       )}
+    </div>
+
+    {selectedProject.images.length > 1 && (
+      <button
+        onClick={nextImg}
+        disabled={imgIndex === selectedProject.images.length - 1}
+        aria-label="Next image"
+        className="shrink-0 text-3xl text-black disabled:opacity-20"
+      >
+        ›
+      </button>
+    )}
+  </div>
+
+  {/* Image Counter */}
+  <div className="mt-3 text-center text-sm text-gray-500">
+    {selectedProject.images.length === 0
+      ? "0 / 0"
+      : `${imgIndex + 1} / ${selectedProject.images.length}`}
+  </div>
+</div>
+```
+
+  </div>
+)}
+
       {fullView && selectedProject && (
         <ProjectViewer
           images={selectedProject.images}
