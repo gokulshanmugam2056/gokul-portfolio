@@ -205,24 +205,23 @@ export const Projects = () => {
             "
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <h2 className="line-clamp-2 flex-1 text-lg font-bold leading-6">
-                {selectedProject.title}
-              </h2>
+          {/* Modal Header */}
+          <div className="mb-4 flex items-start justify-between gap-2">
+            <h2 className="min-w-0 flex-1 text-sm font-bold leading-5 sm:text-lg sm:leading-6">
+              {selectedProject.title}
+            </h2>
 
-          {selectedProject.images.length > 0 && (
-            <button
+            {selectedProject.images.length > 0 && (
+              <button
               onClick={(e) => {
-                e.stopPropagation();
-                setFullView(true);
+              e.stopPropagation();
+              setFullView(true);
               }}
               className="shrink-0 rounded bg-black px-3 py-1 text-xs text-white hover:bg-gray-800"
-            >
-              View Full
-            </button>
+              >
+            View Full </button>
           )}
-        </div>
+          </div>
 
         {/* Image and Navigation */}
         <div className="flex items-center justify-center gap-2 md:gap-7">
