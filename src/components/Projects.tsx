@@ -222,7 +222,7 @@ export const Projects = () => {
               )}
             </div>
 
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex items-center justify-center gap-7">
               {selectedProject.images.length > 1 && (
                 <button
                   onClick={prevImg}
@@ -234,23 +234,23 @@ export const Projects = () => {
               )}
 
               <div
-  className="
-    w-[650px]
-    h-[330px]
-    max-w-[72vw]
-    flex
-    items-center
-    justify-center
-    overflow-hidden
-    border
-    rounded-xl
-    p-3
-    bg-white
-    max-md:w-full
-    max-md:max-w-[90vw]
-    max-md:h-[190px]
-  "
->
+                className="
+                  w-[650px]
+                  h-[330px]
+                  max-w-[72vw]
+                  flex
+                  items-center
+                  justify-center
+                  overflow-hidden
+                  border
+                  rounded-xl
+                  p-3
+                  bg-white
+                  max-md:w-full
+                  max-md:max-w-[90vw]
+                  max-md:h-[190px]
+                "
+              >
                 {selectedProject.images.length > 0 ? (
                   <img
                     src={selectedProject.images[imgIndex]}
