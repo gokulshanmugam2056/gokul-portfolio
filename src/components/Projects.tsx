@@ -247,7 +247,7 @@ export const Projects = () => {
                   p-3
                   bg-white
                   max-md:w-full
-                  max-md:max-w-[80vw]
+                  max-md:max-w-[88vw]
                   max-md:h-[180px]
                 "
               >
