@@ -6,6 +6,7 @@ interface Props {
   initialIndex?: number;
   onClose: () => void;
   onImageChange?: (index: number) => void;
+  showPageCount?: boolean;
 }
 
 const ProjectViewer = ({
@@ -13,6 +14,7 @@ const ProjectViewer = ({
   initialIndex = 0,
   onClose,
   onImageChange,
+  showPageCount = true,
 }: Props) => {
   const [imgIndex, setImgIndex] = useState(initialIndex);
 
@@ -27,7 +29,7 @@ const ProjectViewer = ({
     setImgIndex(initialIndex);
   }, [initialIndex]);
 
-  // Lock background Projects page scroll while ProjectViewer is open
+  // Lock background page scroll while ProjectViewer is open
   useEffect(() => {
     const previousBodyOverflow = document.body.style.overflow;
     const previousHtmlOverflow = document.documentElement.style.overflow;
@@ -41,7 +43,7 @@ const ProjectViewer = ({
     };
   }, []);
 
-  // First-time mobile swipe hint: move only the image slightly
+  // First-time mobile swipe hint
   useEffect(() => {
     if (window.innerWidth >= 768 || images.length <= 1) return;
 
@@ -66,66 +68,39 @@ const ProjectViewer = ({
 
   const changeImage = (newIndex: number, direction: "next" | "prev") => {
     if (
-    newIndex < 0 ||
-    newIndex >= images.length ||
-    isChanging.current
+      newIndex < 0 ||
+      newIndex >= images.length ||
+      isChanging.current
     ) {
-    return;
+      return;
     }
 
     isChanging.current = true;
 
-    // Desktop: simple black fade while changing image
+    // Desktop: black fade effect only
     if (window.innerWidth >= 768) {
-    setSlideClass("opacity-0");
+      setSlideClass("opacity-0");
 
+      window.setTimeout(() => {
+        setImgIndex(newIndex);
+        onImageChange?.(newIndex);
 
-    window.setTimeout(() => {
-      setImgIndex(newIndex);
-      onImageChange?.(newIndex);
-
-      requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          setSlideClass("opacity-100");
-          isChanging.current = false;
+          requestAnimationFrame(() => {
+            setSlideClass("opacity-100");
+            isChanging.current = false;
+          });
         });
-      });
-    }, 180);
+      }, 180);
 
-    return;
-
-
+      return;
     }
 
-    // Mobile: smooth swipe slide effect
-    setSlideClass(
-    direction === "next"
-    ? "translate-x-10 opacity-0"
-    : "-translate-x-10 opacity-0"
-    );
-
-    window.setTimeout(() => {
+    // Mobile: change image directly, no next/previous animation
     setImgIndex(newIndex);
     onImageChange?.(newIndex);
-
-
-    setSlideClass(
-      direction === "next"
-        ? "-translate-x-10 opacity-0"
-        : "translate-x-10 opacity-0"
-    );
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setSlideClass("");
-        isChanging.current = false;
-      });
-    });
-
-
-    }, 140);
+    isChanging.current = false;
   };
-
 
   const nextImage = () => {
     changeImage(imgIndex + 1, "next");
@@ -148,13 +123,8 @@ const ProjectViewer = ({
 
     const distance = touchStartX.current - touchEndX.current;
 
-    if (distance > 50) {
-      nextImage();
-    }
-
-    if (distance < -50) {
-      prevImage();
-    }
+    if (distance > 50) nextImage();
+    if (distance < -50) prevImage();
   };
 
   if (images.length === 0) {
@@ -163,7 +133,7 @@ const ProjectViewer = ({
         <button
           onClick={onClose}
           title="Close"
-          className="fixed top-2 right-4 z-[10000] rounded-full bg-red-600 p-2 text-white shadow-xl transition hover:bg-red-700"
+          className="fixed right-4 top-2 z-[10000] rounded-full bg-red-600 p-2 text-white shadow-xl transition hover:bg-red-700"
         >
           <X size={18} />
         </button>
@@ -175,11 +145,10 @@ const ProjectViewer = ({
 
   return (
     <div className="fixed inset-0 z-[9999] overflow-hidden overscroll-none bg-black">
-      {/* Close Button */}
       <button
         onClick={onClose}
         title="Close"
-        className="fixed top-2 right-4 z-[10000] rounded-full bg-red-600 p-2 text-white shadow-xl transition hover:bg-red-700"
+        className="fixed right-4 top-2 z-[10000] rounded-full bg-red-600 p-2 text-white shadow-xl transition hover:bg-red-700"
       >
         <X size={18} />
       </button>
@@ -196,12 +165,11 @@ const ProjectViewer = ({
           </button>
         )}
 
-        {/* Desktop image: no animation */}
         <img
           src={images[imgIndex]}
           alt={`Project ${imgIndex + 1}`}
           draggable={false}
-          className="max-h-[90vh] max-w-[88vw] select-none object-contain"
+          className={`max-h-[90vh] max-w-[88vw] select-none object-contain transition-opacity duration-200 ${slideClass}`}
         />
 
         {images.length > 1 && (
@@ -214,7 +182,7 @@ const ProjectViewer = ({
           </button>
         )}
 
-        {images.length > 1 && (
+        {showPageCount && (
           <div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-sm font-medium text-white">
             {imgIndex + 1} / {images.length}
           </div>
@@ -222,28 +190,19 @@ const ProjectViewer = ({
       </div>
 
       {/* Mobile View */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-3 pt-14 pb-5 md:hidden">
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-3 pb-5 pt-14 md:hidden">
         <div className="flex items-center justify-center overflow-hidden">
           <img
-          src={images[imgIndex]}
-          alt={`Project ${imgIndex + 1}`}
-          draggable={false}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          className={`     max-h-[78vh]
-              max-w-[97vw]
-              select-none
-              object-contain
-              transition-transform
-              duration-[1200ms]
-              ease-in-out
-              ${hintAnimation}
-            `}
+            src={images[imgIndex]}
+            alt={`Project ${imgIndex + 1}`}
+            draggable={false}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            className={`max-h-[78vh] max-w-[97vw] select-none object-contain transition-transform duration-[1200ms] ease-in-out ${hintAnimation}`}
           />
-
         </div>
 
-        {images.length > 1 && (
+        {showPageCount && (
           <div className="mt-4 text-sm font-medium text-white">
             {imgIndex + 1} / {images.length}
           </div>
