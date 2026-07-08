@@ -94,17 +94,19 @@ export const Achievements = () => {
         style={{ animationDelay: `${index * 100}ms` }}
       >
         <div className="space-y-4">
-          <div
-            className={`${activity.color} w-fit rounded-lg bg-muted p-3`}
-          >
-            <Icon className="h-6 w-6" />
-          </div>
+          <div className="flex items-center gap-3">
+            <div
+              className={`${activity.color} shrink-0 rounded-lg bg-muted p-3`}
+            >
+              <Icon className="h-6 w-6" />
+            </div>
 
-          <div className="space-y-2">
             <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
               {activity.category}
             </p>
+          </div>
 
+          <div className="space-y-2">
             <h4 className="text-lg font-bold">{activity.title}</h4>
 
             <p className="text-sm leading-relaxed text-muted-foreground">
