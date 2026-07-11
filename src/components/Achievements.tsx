@@ -35,7 +35,7 @@ const extracurricular = [
     description:
       "Certificate of Appreciation for contributing to the Swachhata Hi Seva 2023 campaign.",
     color: "text-accent-coral",
-    images: [],
+    images: [socialactivity],
   },
   {
     icon: Heart,
