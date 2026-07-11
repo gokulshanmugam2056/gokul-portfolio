@@ -4,6 +4,7 @@ import { useState } from "react";
 import ProjectViewer from "@/components/ProjectViewer";
 
 import sih24 from "@/assets/sih24.jpeg";
+import socialactivity from "@/assets/socialactivity.jpg";
 
 const achievements = [
   {
