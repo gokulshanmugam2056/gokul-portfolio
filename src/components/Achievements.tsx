@@ -3,7 +3,7 @@ import { Trophy, Heart, Award } from "lucide-react";
 import { useState } from "react";
 import ProjectViewer from "@/components/ProjectViewer";
 
-import sih241 from "@/assets/sih241.jpeg";
+import sih241 from "@/assets/sih241.jpg";
 import sih242 from "@/assets/sih242.jpg";
 import sih243 from "@/assets/sih243.jpg";
 import socialactivity from "@/assets/socialactivity.jpg";
