@@ -3,7 +3,9 @@ import { Trophy, Heart, Award } from "lucide-react";
 import { useState } from "react";
 import ProjectViewer from "@/components/ProjectViewer";
 
-import sih24 from "@/assets/sih24.jpeg";
+import sih241 from "@/assets/sih241.jpeg";
+import sih242 from "@/assets/sih242.jpg";
+import sih243 from "@/assets/sih243.jpg";
 import socialactivity from "@/assets/socialactivity.jpg";
 
 const achievements = [
@@ -14,7 +16,7 @@ const achievements = [
     description:
       "Developed an intelligent platform for alumni-student interaction for the Technical Education Department, Government of Rajasthan.",
     color: "text-accent-teal",
-    images: [sih24],
+    images: [sih241, sih242, sih243],
   },
 ];
 
