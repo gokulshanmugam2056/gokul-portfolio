@@ -231,14 +231,7 @@ export const Achievements = () => {
         </div>
       )}
 
-      {fullView && selectedActivity && (
-        <ProjectViewer
-          images={selectedActivity.images}
-          initialIndex={imgIndex}
-          onImageChange={setImgIndex}
-          onClose={() => setFullView(false)}
-        />
-      )}
+      
     </section>
   );
 };
