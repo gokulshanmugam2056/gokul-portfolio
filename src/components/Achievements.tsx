@@ -184,7 +184,14 @@ export const Achievements = () => {
 
             <div className="flex items-center justify-center gap-2 md:gap-7">
               {selectedActivity.images.length > 1 && (
-                
+                <button
+                  onClick={prevImg}
+                  disabled={imgIndex === 0}
+                  aria-label="Previous image"
+                  className="shrink-0 text-3xl text-black disabled:opacity-20"
+                >
+                  ‹
+                </button>
               )}
 
               <div className="flex h-[330px] w-[850px] max-w-[72vw] items-center justify-center overflow-hidden rounded-xl border bg-white p-3 max-md:h-[180px] max-md:w-[calc(100vw-70px)] max-md:max-w-none">
