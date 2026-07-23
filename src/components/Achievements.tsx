@@ -133,7 +133,16 @@ export const Achievements = () => {
         </div>
 
         <div className="space-y-4">
-          
+          <div>
+            <h3 className="mb-4 text-center text-2xl font-bold">
+              Key Achievements
+            </h3>
+
+            <div className="mx-auto max-w-md">
+              {achievements.map(renderActivityCard)}
+            </div>
+          </div>
+
           <div>
             <h3 className="mb-4 text-center text-2xl font-bold">
               Extracurricular Activities
