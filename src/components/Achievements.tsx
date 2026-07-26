@@ -170,7 +170,15 @@ export const Achievements = () => {
               </h2>
 
               {selectedActivity.images.length > 0 && (
-                
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setFullView(true);
+                  }}
+                  className="shrink-0 rounded bg-black px-3 py-1 text-xs text-white hover:bg-gray-800"
+                >
+                  View Full
+                </button>
               )}
             </div>
 
