@@ -70,13 +70,7 @@ export const About = () => {
         </div>
 
         {/* OVERVIEW */}
-        <div className="max-w-4xl mx-auto mb-14 text-center">
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            I am a passionate Full Stack Developer focused on building modern,
-            scalable and responsive web applications with clean UI, strong backend logic,
-            and efficient database management.
-          </p>
-        </div>
+        
 
         {/* SKILLS */}
         <div className="grid md:grid-cols-2 gap-8">
