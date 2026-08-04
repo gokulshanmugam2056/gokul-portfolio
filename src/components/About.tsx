@@ -105,7 +105,9 @@ export const About = () => {
           <Card className="p-4 shadow-soft">
             <div className="flex items-center gap-3 mb-6">
               <Globe className="w-6 h-6 text-accent-purple" />
-              
+              <h4 className="font-bold text-lg">
+                Web & Backend Technologies
+              </h4>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
