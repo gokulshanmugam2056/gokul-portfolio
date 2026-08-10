@@ -84,7 +84,7 @@ export const Contact = () => {
           <div className="w-20 h-1 bg-gradient-accent mx-auto rounded-full"></div>
 
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind? Let's work together to create something amazing!
+            
           </p>
 
         </div>
