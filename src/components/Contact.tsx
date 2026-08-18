@@ -132,9 +132,7 @@ export const Contact = () => {
                 <div>
                   <p className="font-medium">LinkedIn</p>
 
-                  <p className="text-sm text-muted-foreground">
-                    gokulshanmugam2056
-                  </p>
+                  
                 </div>
 
               </Card>
