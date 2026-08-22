@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
+import resumeFile from "@/assets/GOKUL S.pdf";
 import { Card } from "@/components/ui/card";
 import {
   Code2,
@@ -76,6 +79,22 @@ export const About = () => {
             scalable and responsive web applications with clean UI, strong backend logic,
             and efficient database management.
           </p>
+        <div className="mt-6 flex justify-center">
+          <Button
+            size="lg"
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
+            asChild
+          >
+            <a
+              href={resumeFile}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Download className="mr-2 h-5 w-5" />
+              Download Resume
+            </a>
+          </Button>
+        </div>
         </div>
 
         {/* SKILLS */}
