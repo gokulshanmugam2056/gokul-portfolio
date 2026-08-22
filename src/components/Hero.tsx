@@ -71,30 +71,6 @@ export const Hero = () => {
             {/* Buttons */}
             <div className="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
 
-              {/* Resume */}
-              <Button
-                size="lg"
-                variant="outline"
-                className="
-                  border-purple-300
-                  text-white
-                  bg-purple-500/20
-                  hover:bg-purple-500/40
-                  hover:scale-105
-                  transition-all
-                  duration-300
-                "
-                asChild
-              >
-                <a
-                  href={resumeFile}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Resume
-                </a>
-              </Button>
-
               {/* Projects */}
               <Button
                 size="lg"
