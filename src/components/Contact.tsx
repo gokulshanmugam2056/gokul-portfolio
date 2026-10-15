@@ -40,11 +40,11 @@ export const Contact = () => {
       return;
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Validate Gmail address only
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
 
-    if (!emailRegex.test(email)) {
-      toast.error("Please enter a valid email address");
+    if (!gmailRegex.test(email)) {
+      toast.error("Please enter a valid Gmail address ending with @gmail.com");
       return;
     }
 
