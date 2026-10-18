@@ -62,7 +62,7 @@ export const Contact = () => {
         "QbThD2_C1E1ZT2Dy1"
       );
 
-      toast.success("Your message has been submitted!");
+      toast.success("Your message has been sent successfully!");
 
       setFormData({
         name: "",
