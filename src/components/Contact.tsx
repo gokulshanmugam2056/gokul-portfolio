@@ -71,7 +71,7 @@ export const Contact = () => {
       });
     } catch (error) {
       console.error("EMAIL ERROR:", error);
-      toast.error("Failed to send message. Please try again.");
+      toast.error("Failed to send message.");
     } finally {
       setLoading(false);
     }
