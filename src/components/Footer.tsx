@@ -13,7 +13,7 @@ export const Footer = () => {
             Gokul Shanmugam
           </h3>
           <p className="text-muted-foreground text-xs md:text-sm">
-            Building the future, one line of code at a time
+            Building the future
           </p>
         </div>
 
