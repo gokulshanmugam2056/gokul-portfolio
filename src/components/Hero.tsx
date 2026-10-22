@@ -86,7 +86,7 @@ export const Hero = () => {
                 "
                 onClick={() => navigate("/projects")}
               >
-                View My Work
+                
               </Button>
 
               {/* Contact */}
