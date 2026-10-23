@@ -104,7 +104,7 @@ export const Hero = () => {
                 "
                 onClick={() => navigate("/contact")}
               >
-                
+                Get in Touch
               </Button>
 
             </div>
