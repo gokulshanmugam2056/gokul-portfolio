@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
@@ -18,41 +17,34 @@ export const Navigation = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
-  // Scroll to top when the page changes
+  // ✅ FIX: always scroll to top when page changes
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: "auto",
+      behavior: "auto", // change to "smooth" if you want animation
     });
-    setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
-  // Prevent background scrolling while mobile menu is open
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "auto";
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
   }, [isMobileMenuOpen]);
 
-  // Detect page scroll
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Header background
-  const headerClass = isHomePage
-    ? isScrolled
-      ? "bg-white/95 backdrop-blur-md shadow-md"
-      : "bg-white"
-    : "bg-white/95 backdrop-blur-md shadow-md";
+  // HEADER STYLE LOGIC
+  const headerClass =
+    isHomePage
+      ? isScrolled
+        ? "bg-white/10 backdrop-blur-md shadow-md"
+        : "bg-transparent"
+      : "bg-white/20 backdrop-blur-md shadow-md";
 
   return (
     <>
@@ -61,6 +53,7 @@ export const Navigation = () => {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerClass}`}
       >
         <div className="w-full pl-6 pr-4 sm:pl-8 sm:pr-6 lg:pl-10 lg:pr-8">
+
           <div className="flex items-center justify-between h-16">
 
             {/* LOGO */}
@@ -73,35 +66,30 @@ export const Navigation = () => {
 
             {/* DESKTOP MENU */}
             <nav className="hidden md:flex items-center space-x-6">
-              {navItems.map((item) => {
-                const isActive = location.pathname === item.path;
-
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className={`relative px-4 py-2 font-medium transition-all
-                      before:absolute before:bottom-0 before:left-0 before:h-[2px]
-                      before:bg-gradient-to-r before:from-purple-500
-                      before:via-pink-500 before:to-red-500 before:transition-all
-                      ${
-                        isActive
-                          ? "text-black before:w-full"
-                          : "text-black hover:text-indigo-600 hover:before:w-full"
-                      }`}
-                  >
-                    {item.name}
-                  </Link>
-                );
-              })}
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`relative px-4 py-2 font-medium transition-all before:absolute before:bottom-0 before:left-0 before:h-[2px] before:bg-gradient-to-r before:from-purple-500 before:via-pink-500 before:to-red-500 before:transition-all ${
+                    location.pathname === item.path
+                      ? isHomePage
+                        ? "text-white before:w-full"
+                        : "text-black before:w-full"
+                      : isHomePage
+                      ? "text-gray-200 hover:text-white hover:before:w-full"
+                      : "text-gray-700 hover:text-black hover:before:w-full"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
             </nav>
 
             {/* MOBILE BUTTON */}
             <button
-              type="button"
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMobileMenuOpen}
-              className="md:hidden text-black focus:outline-none"
+              className={`md:hidden focus:outline-none ${
+                isHomePage ? "text-white" : "text-black"
+              }`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -112,37 +100,32 @@ export const Navigation = () => {
 
       {/* BACKDROP */}
       {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-xl z-40"></div>
       )}
 
       {/* MOBILE MENU */}
       <div
-        className={`md:hidden fixed top-16 left-0 right-0 z-50 bg-white shadow-lg transition-all duration-300 ${
+        className={`md:hidden fixed top-16 left-0 right-0 z-50 bg-white/10 backdrop-blur-lg shadow-lg transition-all duration-300 ${
           isMobileMenuOpen ? "max-h-screen" : "max-h-0"
         } overflow-hidden`}
       >
         <div className="flex flex-col px-4 py-6 space-y-4">
-          {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
-
-            return (
-              <Link
-                key={item.name}
-                to={item.path}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`block px-4 py-3 rounded-lg font-medium transition-all ${
-                  isActive
-                    ? "bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white"
-                    : "text-black hover:bg-gray-100 hover:text-indigo-600"
-                }`}
-              >
-                {item.name}
-              </Link>
-            );
-          })}
+          {navItems.map((item) => (
+            <Link
+              key={item.name}
+              to={item.path}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`block px-4 py-3 rounded-lg font-medium transition-all ${
+                location.pathname === item.path
+                  ? "bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white"
+                  : isHomePage
+                  ? "text-white hover:bg-gradient-to-r hover:from-purple-500 hover:via-pink-500"
+                  : "text-black hover:bg-gradient-to-r hover:from-purple-500 hover:via-pink-500 hover:text-white"
+              }`}
+            >
+              {item.name}
+            </Link>
+          ))}
         </div>
       </div>
     </>
