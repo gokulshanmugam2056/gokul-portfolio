@@ -39,12 +39,13 @@ export const Navigation = () => {
   }, []);
 
   // HEADER STYLE LOGIC
-  const headerClass =
-    isHomePage
-      ? isScrolled
-        ? "bg-white/10 backdrop-blur-md shadow-md"
-        : "bg-transparent"
-      : "bg-white/20 backdrop-blur-md shadow-md";
+  
+const headerClass = isHomePage
+  ? isScrolled
+    ? "bg-indigo-950/40 backdrop-blur-xl shadow-md"
+    : "bg-purple-950/20 backdrop-blur-xl"
+  : "bg-white/20 backdrop-blur-xl shadow-md";
+
 
   return (
     <>
