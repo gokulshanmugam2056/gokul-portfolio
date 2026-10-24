@@ -1,12 +1,9 @@
+
 import { Button } from "@/components/ui/button";
-import {
-  ArrowDown,
-  Download,
-} from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
 
-import resumeFile from "@/assets/GOKUL S.pdf";
 import myPhoto from "@/assets/myphoto.jpg";
 
 export const Hero = () => {
@@ -15,18 +12,15 @@ export const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center pt-16 px-4 bg-gradient-to-br from-purple-700 to-indigo-900"
+      className="min-h-screen flex items-center justify-center pt-16 px-4 bg-white"
     >
       <div className="max-w-7xl mx-auto w-full">
-
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
 
           {/* Text */}
           <div className="flex-1 text-center md:text-left space-y-6 animate-fade-in">
-
             <div className="space-y-2">
-
-              <p className="text-accent-teal font-medium text-lg">
+              <p className="text-black font-medium text-lg">
                 Hi, I'm
               </p>
 
@@ -35,19 +29,17 @@ export const Hero = () => {
                   text-5xl
                   md:text-7xl
                   font-bold
-                  text-white
+                  text-black
                   tracking-tight
                   md:-ml-2
                 "
               >
                 Gokul S
               </h1>
-
             </div>
 
             {/* Typing */}
             <div className="h-[40px]">
-
               <TypeAnimation
                 sequence={[
                   "Web Developer",
@@ -58,12 +50,12 @@ export const Hero = () => {
                 wrapper="p"
                 speed={50}
                 repeat={Infinity}
-                className="text-xl md:text-2xl text-gray-200"
+                className="text-xl md:text-2xl text-black"
               />
-
             </div>
 
-            <p className="text-lg text-gray-300 max-w-xl">
+            {/* Description */}
+            <p className="text-lg text-gray-700 max-w-xl">
               Crafting beautiful, functional, and user-centric digital
               experiences with modern web technologies.
             </p>
@@ -76,10 +68,10 @@ export const Hero = () => {
                 size="lg"
                 variant="outline"
                 className="
-                  border-purple-300
-                  text-white
-                  bg-purple-500/20
-                  hover:bg-purple-500/40
+                  border-black
+                  text-black
+                  bg-white
+                  hover:bg-gray-100
                   hover:scale-105
                   transition-all
                   duration-300
@@ -94,10 +86,10 @@ export const Hero = () => {
                 size="lg"
                 variant="outline"
                 className="
-                  border-purple-300
-                  text-white
-                  bg-purple-500/20
-                  hover:bg-purple-500/40
+                  border-black
+                  text-black
+                  bg-white
+                  hover:bg-gray-100
                   hover:scale-105
                   transition-all
                   duration-300
@@ -106,19 +98,16 @@ export const Hero = () => {
               >
                 Get in Touch
               </Button>
-
             </div>
-
           </div>
 
           {/* Profile */}
           <div className="flex-1 flex justify-center animate-fade-in">
-
             <div
               className="relative"
               onContextMenu={(e) => e.preventDefault()}
             >
-
+              {/* Background glow */}
               <div
                 className="
                   absolute
@@ -130,6 +119,7 @@ export const Hero = () => {
                 "
               />
 
+              {/* Profile image */}
               <img
                 src={myPhoto}
                 alt="Gokul S"
@@ -146,25 +136,23 @@ export const Hero = () => {
                   object-cover
                   shadow-lg
                   border-4
-                  border-white
+                  border-black
                   select-none
                 "
               />
-
             </div>
-
           </div>
-
         </div>
 
         {/* Scroll */}
         <div className="flex justify-center mt-16 animate-bounce">
-
           <button
+            type="button"
+            aria-label="Go to About page"
             onClick={() => navigate("/about")}
             className="
-              text-gray-200
-              hover:text-white
+              text-black
+              hover:text-gray-600
               hover:scale-125
               transition-all
               duration-300
@@ -172,9 +160,7 @@ export const Hero = () => {
           >
             <ArrowDown className="w-6 h-6" />
           </button>
-
         </div>
-
       </div>
     </section>
   );
