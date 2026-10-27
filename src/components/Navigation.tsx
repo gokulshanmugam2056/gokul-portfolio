@@ -7,6 +7,7 @@ const navItems = [
   { name: "About Me", path: "/about" },
   { name: "Projects", path: "/projects" },
   { name: "Achievements", path: "/achievements" },
+  { name: "Contact Me", path: "/contact" },
 ];
 
 export const Navigation = () => {
