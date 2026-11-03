@@ -62,7 +62,7 @@ const headerClass = isHomePage
               to="/"
               className="text-2xl md:text-3xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-purple-500"
             >
-              Gokul S | 
+              Gokul S | Portfolio
             </Link>
 
             {/* DESKTOP MENU */}
