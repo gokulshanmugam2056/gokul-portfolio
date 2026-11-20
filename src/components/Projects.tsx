@@ -55,7 +55,7 @@ const projects = [
     duration: "May 2024 - September 2024",
     role: "Full Stack Developer",
     repo: "https://github.com/gokulshanmugam2056/faculty_worklog",
-    
+    images: [],
     description:
       "Developed a web-based system to track, manage, and report daily faculty work activities with a structured dashboard and automated reporting features for improved efficiency and transparency.",
     techStack: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "Apache"],
